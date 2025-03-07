@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import {
-  Collectors_vault,
+  CollectorsVault,
   CreateProfile,
   ForgetPassword,
   Login,
@@ -37,8 +37,8 @@ export const Navigation = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Collectors_vault"
-          component={Collectors_vault}
+          name="CollectorsVault"
+          component={CollectorsVault}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

@@ -5,6 +5,7 @@ export type RootStackParamList = {
   CreateProfile: undefined;
   ForgetPassword: undefined;
   Profile: { userId: string };
+  CollectorsVault: undefined;
 };
 export type UserDetails = {
   profileType: string;

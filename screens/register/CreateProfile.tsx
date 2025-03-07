@@ -17,10 +17,12 @@ import {
 } from "../../component/helper/Helper";
 import { Colors } from "../../assets/colors/Colors";
 import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
-import { UserDetails } from "../../assets/types/Types";
+import { RootStackParamList, UserDetails } from "../../assets/types/Types";
 import { Dropdown } from "react-native-element-dropdown";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 export const CreateProfile = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [userDetails, setUserDetails] = useState<UserDetails | any>({
     profileType: "",
     location: "",
@@ -106,7 +108,12 @@ export const CreateProfile = () => {
           </View>
         </View>
         <View style={styles.SubmitContainer}>
-          <TouchableOpacity style={styles.SubmitButton}>
+          <TouchableOpacity
+            style={styles.SubmitButton}
+            onPress={() => {
+              navigation.navigate("CollectorsVault");
+            }}
+          >
             <Text style={styles.SubmitText}>Submit</Text>
           </TouchableOpacity>
         </View>

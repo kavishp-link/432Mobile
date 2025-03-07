@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-export const Collectors_vault = () => {
+export const CollectorsVault = () => {
   return (
     <View>
       <Text>Collectors_vault</Text>
