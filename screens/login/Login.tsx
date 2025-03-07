@@ -17,7 +17,7 @@ import { ScreenWidth } from "../../component/helper/Helper";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { RootStackParamList } from "../../assets/types/Types";
 
-const Login = () => {
+export const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [loginCreditional, setLoginCreditional] = useState({
     email: "",
@@ -86,8 +86,6 @@ const Login = () => {
     </LoginAndRegisterCustom>
   );
 };
-
-export default Login;
 
 const styles = StyleSheet.create({
   mainContainer: {

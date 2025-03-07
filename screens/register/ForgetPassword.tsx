@@ -5,15 +5,15 @@ import {
   Text,
   TextInput,
   View,
-} from 'react-native';
-import React from 'react';
-import { Colors } from '../../assets/colors/Colors';
-import { ScreenWidth } from '../../component/helper/Helper';
-import { PoppinsFonts } from '../../assets/fonts';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { icon } from '../../assets/images/Image';
+} from "react-native";
+import React from "react";
+import { Colors } from "../../assets/colors/Colors";
+import { ScreenWidth } from "../../component/helper/Helper";
+import { PoppinsFonts } from "../../assets/fonts";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { icon } from "../../assets/images/Image";
 
-const ForgetPassword = () => {
+export const ForgetPassword = () => {
   const insets = useSafeAreaInsets();
   return (
     <View style={[styles.mainContainer, { paddingBottom: insets.bottom - 7 }]}>
@@ -30,9 +30,9 @@ const ForgetPassword = () => {
             </View>
             <TextInput
               style={styles.input}
-              keyboardType='email-address'
-              placeholder='Email Address'
-              autoCapitalize='none'
+              keyboardType="email-address"
+              placeholder="Email Address"
+              autoCapitalize="none"
               //  value={loginCreditional.email}
               //  onChangeText={(text) => handleChange('email', text)}
             />
@@ -47,8 +47,6 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
-
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -56,24 +54,24 @@ const styles = StyleSheet.create({
   },
   safeArea: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   boxContainer: {
-    alignItems: 'center',
-    alignSelf: 'center',
+    alignItems: "center",
+    alignSelf: "center",
   },
   bottomContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     width: ScreenWidth - 50,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    alignSelf: 'center',
+    alignItems: "center",
+    justifyContent: "space-between",
+    alignSelf: "center",
     // Add margin instead of absolute positioning
   },
   icon432: {
     fontSize: 21,
     letterSpacing: 1.5,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   iconCollective: {
     fontFamily: PoppinsFonts.Regular,
@@ -84,8 +82,8 @@ const styles = StyleSheet.create({
   },
   heading: {
     marginVertical: 25,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   LocksmithText: {
     fontFamily: PoppinsFonts.SemiBold,
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   inputContainer: {
-    position: 'relative',
+    position: "relative",
     height: 46,
     backgroundColor: Colors.white,
     borderWidth: 1,
@@ -107,17 +105,17 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: 'center',
-    borderColor: '#BDBDBD',
+    justifyContent: "center",
+    borderColor: "#BDBDBD",
   },
   placeholderContainer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: "absolute",
+    flexDirection: "row",
+    alignItems: "center",
     left: 20,
   },
   placeholderText: {
-    color: '#BDBDBD',
+    color: "#BDBDBD",
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 5,
@@ -127,7 +125,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   inputIconEmail: {
     height: 15,

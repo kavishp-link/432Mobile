@@ -6,25 +6,25 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useState } from 'react';
-import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
-import { PoppinsFonts } from '../../assets/fonts';
-import { Colors } from '../../assets/colors/Colors';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../assets/types/Types';
-import { ScreenWidth } from '../../component/helper/Helper';
-import { icon } from '../../assets/images/Image';
-import { Dropdown } from 'react-native-element-dropdown';
+} from "react-native";
+import React, { useState } from "react";
+import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
+import { PoppinsFonts } from "../../assets/fonts";
+import { Colors } from "../../assets/colors/Colors";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../assets/types/Types";
+import { ScreenWidth } from "../../component/helper/Helper";
+import { icon } from "../../assets/images/Image";
+import { Dropdown } from "react-native-element-dropdown";
 
-const Register = () => {
+export const Register = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
 
   const [registerCreditional, setRegisterCreditional] = useState({
-    name: '',
-    email: '',
-    password: '',
-    dob: '',
+    name: "",
+    email: "",
+    password: "",
+    dob: "",
   });
   const inputFields: {
     key: keyof typeof registerCreditional;
@@ -34,29 +34,29 @@ const Register = () => {
     secureTextEntry?: boolean;
   }[] = [
     {
-      key: 'name',
-      placeholder: 'Name',
+      key: "name",
+      placeholder: "Name",
       icon: icon.userIcon,
-      keyboardType: 'default',
+      keyboardType: "default",
     },
     {
-      key: 'email',
-      placeholder: 'Email Address',
+      key: "email",
+      placeholder: "Email Address",
       icon: icon.email,
-      keyboardType: 'email-address',
+      keyboardType: "email-address",
     },
     {
-      key: 'password',
-      placeholder: 'Password',
+      key: "password",
+      placeholder: "Password",
       icon: icon.password,
-      keyboardType: 'default',
+      keyboardType: "default",
       secureTextEntry: true,
     },
     {
-      key: 'dob',
-      placeholder: 'Date of Birth',
+      key: "dob",
+      placeholder: "Date of Birth",
       icon: icon.dob,
-      keyboardType: 'numeric',
+      keyboardType: "numeric",
     },
   ];
   const handleChange = (key: string, value: string) => {
@@ -70,9 +70,9 @@ const Register = () => {
           <Text style={styles.firstHeading}>Register New Profile</Text>
           <View style={styles.secondHeading}>
             <Text style={styles.secondHeadingText}>Join us?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+            <TouchableOpacity onPress={() => navigation.navigate("Login")}>
               <Text style={styles.secondHeadingTextTouchable}>
-                {' '}
+                {" "}
                 Log in here
               </Text>
             </TouchableOpacity>
@@ -102,7 +102,7 @@ const Register = () => {
         <View style={styles.nextContainer}>
           <TouchableOpacity
             style={styles.nextButton}
-            onPress={() => navigation.navigate('CreateProfile')}
+            onPress={() => navigation.navigate("CreateProfile")}
           >
             <Text style={styles.nextText}>Next</Text>
           </TouchableOpacity>
@@ -112,15 +112,13 @@ const Register = () => {
   );
 };
 
-export default Register;
-
 const styles = StyleSheet.create({
   mainContainer: {
     height: 500,
   },
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: 40,
   },
   firstHeading: {
@@ -129,9 +127,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   secondHeading: {
-    flexDirection: 'row', // Aligns text & button in a row
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row", // Aligns text & button in a row
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 15,
   },
   secondHeadingText: {
@@ -143,13 +141,13 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.Regular,
     fontSize: 16,
     color: Colors.white,
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
   },
   secondContainer: {
     paddingTop: 10,
   },
   inputContainer: {
-    position: 'relative',
+    position: "relative",
     height: 46,
     backgroundColor: Colors.white,
 
@@ -157,16 +155,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   placeholderContainer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: "absolute",
+    flexDirection: "row",
+    alignItems: "center",
     left: 20,
   },
   placeholderText: {
-    color: '#BDBDBD',
+    color: "#BDBDBD",
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 5,
@@ -176,7 +174,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   inputIconEmail: {
     height: 15,
@@ -195,8 +193,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 15,
     borderRadius: 23,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   nextText: {
     fontSize: 16,
