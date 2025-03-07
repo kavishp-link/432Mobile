@@ -1,11 +1,12 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
-
 import {
   CollectorsVault,
   CreateProfile,
   ForgetPassword,
+  Galleria,
+  GalleriaCardDetails,
   Login,
   Register,
 } from "../../screens";
@@ -39,6 +40,16 @@ export const Navigation = () => {
         <Stack.Screen
           name="CollectorsVault"
           component={CollectorsVault}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Galleria"
+          component={Galleria}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="GalleriaCardDetails"
+          component={GalleriaCardDetails}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

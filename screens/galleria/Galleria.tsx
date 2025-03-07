@@ -10,20 +10,21 @@ import React from "react";
 import { TopBar } from "../../component/customComponent/TopBar";
 import Container from "../../component/customComponent/Container";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { cardMockData } from "../../component/helper/Helper";
+import { cardMockData, galleriaMockData } from "../../component/helper/Helper";
 import CollectionCard from "../../component/customComponent/CollectionCard";
 import { icon } from "../../assets/images/Image";
 import { HeaderProfile } from "../../component/customComponent/HearderProfile";
 import { PoppinsFonts } from "../../assets/fonts";
 import { Colors } from "../../assets/colors/Colors";
+import { GalleriaCard } from "../../component/customComponent/GalleriaCard";
 import { RootStackParamList } from "../../assets/types/Types";
 
-export const CollectorsVault = () => {
+export const Galleria = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
-    <Container bottomTexts={["Art", "is", "Wealth"]}>
+    <Container bottomTexts={["art", "is", "wealth"]}>
       <TopBar
-        midText={"Collector's Vault"}
+        midText={"Galleria"}
         onLeftPress={() => {
           navigation.goBack();
         }}
@@ -38,23 +39,19 @@ export const CollectorsVault = () => {
           scoreLabel="connoisseur"
         />
       </View>
-
-      <Text style={styles.sectionTitle}>Collected Art</Text>
-      <View style={styles.divider} />
-
       <FlatList
-        data={cardMockData}
+        data={galleriaMockData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <CollectionCard
-            item={item}
+          <GalleriaCard
+            {...item}
+            isDisable={false}
             onPress={() => {
-              navigation.navigate("Galleria");
+              navigation.navigate("GalleriaCardDetails");
             }}
           />
         )}
-        numColumns={2}
-        columnWrapperStyle={styles.row}
+        contentContainerStyle={{ marginHorizontal: 20 }}
       />
     </Container>
   );

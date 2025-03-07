@@ -6,6 +6,8 @@ export type RootStackParamList = {
   ForgetPassword: undefined;
   Profile: { userId: string };
   CollectorsVault: undefined;
+  Galleria: undefined;
+  GalleriaCardDetails: undefined;
 };
 export type UserDetails = {
   profileType: string;
