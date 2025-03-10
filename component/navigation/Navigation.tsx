@@ -1,6 +1,6 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   CollectorsVault,
   CreateProfile,
@@ -9,46 +9,52 @@ import {
   GalleriaCardDetails,
   Login,
   Register,
-} from "../../screens";
+} from '../../screens';
+import Home from '../../screens/home/Home';
 
 const Stack = createStackNavigator();
 
 export const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={"Login"}>
+      <Stack.Navigator initialRouteName={'Login'}>
         <Stack.Screen
-          name="Login"
+          name='Login'
           component={Login}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Register"
+          name='Register'
           component={Register}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CreateProfile"
+          name='CreateProfile'
           component={CreateProfile}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ForgetPassword"
+          name='ForgetPassword'
           component={ForgetPassword}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CollectorsVault"
+          name='Home'
+          component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='CollectorsVault'
           component={CollectorsVault}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Galleria"
+          name='Galleria'
           component={Galleria}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="GalleriaCardDetails"
+          name='GalleriaCardDetails'
           component={GalleriaCardDetails}
           options={{ headerShown: false }}
         />

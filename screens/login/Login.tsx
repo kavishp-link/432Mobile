@@ -7,21 +7,21 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useState } from "react";
-import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
-import { Colors } from "../../assets/colors/Colors";
-import { icon } from "../../assets/images/Image";
-import { PoppinsFonts } from "../../assets/fonts";
-import { ScreenWidth } from "../../component/helper/Helper";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../assets/types/Types";
+} from 'react-native';
+import React, { useState } from 'react';
+import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
+import { Colors } from '../../assets/colors/Colors';
+import { icon } from '../../assets/images/Image';
+import { PoppinsFonts } from '../../assets/fonts';
+import { ScreenWidth } from '../../component/helper/Helper';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../assets/types/Types';
 
 export const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [loginCreditional, setLoginCreditional] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const handleChange = (key: string, value: string) => {
@@ -43,11 +43,11 @@ export const Login = () => {
             </View>
             <TextInput
               style={styles.input}
-              keyboardType="email-address"
-              placeholder="Email Address"
-              autoCapitalize="none"
+              keyboardType='email-address'
+              placeholder='Email Address'
+              autoCapitalize='none'
               value={loginCreditional.email}
-              onChangeText={(text) => handleChange("email", text)}
+              onChangeText={(text) => handleChange('email', text)}
             />
           </View>
           {/* Password Input */}
@@ -59,25 +59,28 @@ export const Login = () => {
             <TextInput
               style={styles.input}
               secureTextEntry
-              placeholder="Password"
+              placeholder='Password'
               value={loginCreditional.password}
-              onChangeText={(text) => handleChange("password", text)}
+              onChangeText={(text) => handleChange('password', text)}
             />
           </View>
           <TouchableOpacity
             style={styles.touchablelocksmith}
-            onPress={() => navigation.navigate("ForgetPassword")}
+            onPress={() => navigation.navigate('ForgetPassword')}
           >
             <Text style={styles.textLocksmith}>Need a locksmith?</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.loginContainer}>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity
+            style={styles.loginButton}
+            onPress={() => navigation.navigate('Home')}
+          >
             <Text style={styles.loginText}>Log in</Text>
           </TouchableOpacity>
           <View style={styles.createProfile}>
             <Text style={styles.createProfileText}>Join us?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <Text style={styles.createProfileText2}> Create a Profile</Text>
             </TouchableOpacity>
           </View>
@@ -92,8 +95,8 @@ const styles = StyleSheet.create({
     height: 500,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 40,
   },
   logo: {
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
   },
   secondContainer: {},
   inputContainer: {
-    position: "relative",
+    position: 'relative',
     height: 46,
     backgroundColor: Colors.white,
 
@@ -116,16 +119,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderContainer: {
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "center",
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
     left: 20,
   },
   placeholderText: {
-    color: "#BDBDBD",
+    color: '#BDBDBD',
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 5,
@@ -135,7 +138,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   inputIconEmail: {
     height: 15,
@@ -161,18 +164,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 15,
     borderRadius: 23,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loginText: {
     fontSize: 16,
     fontFamily: PoppinsFonts.SemiBold,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   createProfile: {
-    flexDirection: "row", // Aligns text & button in a row
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row', // Aligns text & button in a row
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 20,
   },
   createProfileText: {
@@ -183,9 +186,9 @@ const styles = StyleSheet.create({
   },
   createProfileText2: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
     fontFamily: PoppinsFonts.Bold,
     color: Colors.white,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
 });
