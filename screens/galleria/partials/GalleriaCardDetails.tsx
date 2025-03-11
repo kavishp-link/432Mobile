@@ -2,6 +2,7 @@ import {
   FlatList,
   Image,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -10,9 +11,8 @@ import React from "react";
 import { TopBar } from "../../../component/customComponent/TopBar";
 import Container from "../../../component/customComponent/Container";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import CollectionCard from "../../../component/customComponent/CollectionCard";
 import { icon } from "../../../assets/images/Image";
-import { HeaderProfile } from "../../../component/customComponent/HearderProfile";
+import { HeaderProfile } from "../../../component/customComponent/HeaderProfile";
 import { PoppinsFonts } from "../../../assets/fonts";
 import { Colors } from "../../../assets/colors/Colors";
 import { GalleriaCard } from "../../../component/customComponent/GalleriaCard";
@@ -33,6 +33,7 @@ export const GalleriaCardDetails = () => {
         }}
         isBackButton={true}
       />
+
       <View style={{ marginVertical: 20 }}>
         <HeaderProfile
           avatar={icon.userAvatar}
@@ -42,36 +43,49 @@ export const GalleriaCardDetails = () => {
           scoreLabel="connoisseur"
         />
       </View>
-      <View style={styles.card}>
-        <Image source={icon.spaceImageShip} style={styles.image} />
-        <View
-          style={{
-            padding: 10,
-            alignSelf: "flex-start",
-          }}
-        >
-          <Text style={styles.title} numberOfLines={2} allowFontScaling={false}>
-            I Don’t Know You, But I Love You
-          </Text>
-          <Text
-            style={styles.subtitle}
-            numberOfLines={2}
-            allowFontScaling={false}
+      <ScrollView>
+        <View style={styles.card}>
+          <Image source={icon.spaceImageShip} style={styles.image} />
+          <View
+            style={{
+              padding: 10,
+              alignSelf: "flex-start",
+            }}
           >
-            11 collectibles
-          </Text>
+            <Text
+              style={styles.title}
+              numberOfLines={2}
+              allowFontScaling={false}
+            >
+              I Don’t Know You, But I Love You
+            </Text>
+            <Text
+              style={styles.subtitle}
+              numberOfLines={2}
+              allowFontScaling={false}
+            >
+              11 collectibles
+            </Text>
+          </View>
         </View>
-      </View>
-      <Text style={styles.sectionTitle}>The sun and the moon</Text>
-      <View style={styles.divider} />
-      <FlatList
-        data={galleriaMockData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <GalleriaCard {...item} isDisable={true} onPress={() => {}} />
-        )}
-        contentContainerStyle={{ marginHorizontal: 20 }}
-      />
+        <Text style={styles.sectionTitle}>The sun and the moon</Text>
+        <View style={styles.divider} />
+        <FlatList
+          data={galleriaMockData}
+          scrollEnabled={false}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <GalleriaCard
+              {...item}
+              isDisable={false}
+              onPress={() => {
+                navigation.navigate("WorkspaceScreen");
+              }}
+            />
+          )}
+          contentContainerStyle={{ marginHorizontal: 20 }}
+        />
+      </ScrollView>
     </Container>
   );
 };

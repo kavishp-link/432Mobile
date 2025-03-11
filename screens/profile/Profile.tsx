@@ -5,34 +5,34 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useRef } from 'react';
-import Container from '../../component/customComponent/Container';
-import { HeaderProfile } from '../../component/customComponent/HearderProfile';
-import { icon } from '../../assets/images/Image';
-import HomeVideo from '../../component/customComponent/HomeVideo';
+} from "react-native";
+import React, { useRef } from "react";
+import Container from "../../component/customComponent/Container";
+import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
+import { icon } from "../../assets/images/Image";
+import HomeVideo from "../../component/customComponent/HomeVideo";
 import {
   ScreenWidth,
   settingsOptions,
   themeImage,
-} from '../../component/helper/Helper';
-import { PoppinsFonts } from '../../assets/fonts';
-import { Colors } from '../../assets/colors/Colors';
-import BottomSheet from '../../component/customComponent/BottomSheet';
+} from "../../component/helper/Helper";
+import { PoppinsFonts } from "../../assets/fonts";
+import { Colors } from "../../assets/colors/Colors";
+import BottomSheet from "../../component/customComponent/BottomSheet";
 
 export const Profile = () => {
   const refRBSheet = useRef<any>();
   const settingsOptions = [
     {
-      title: 'Personal Details',
-      onPress: () => console.log('Personal Details Pressed'),
+      title: "Personal Details",
+      onPress: () => console.log("Personal Details Pressed"),
     },
     {
-      title: 'Account Security & Privacy',
-      onPress: () => console.log('Account Security & Privacy Pressed'),
+      title: "Account Security & Privacy",
+      onPress: () => console.log("Account Security & Privacy Pressed"),
     },
     {
-      title: 'Theme',
+      title: "Theme",
       onPress: () => refRBSheet.current.open(),
       icon: icon.rightdrop,
       themeIcon: icon.themeIcon,
@@ -52,7 +52,7 @@ export const Profile = () => {
           style={{
             width: cardSize * 1.15,
             height: cardSize * 1.15,
-            resizeMode: 'contain',
+            resizeMode: "contain",
           }}
         />
       </View>
@@ -60,14 +60,14 @@ export const Profile = () => {
   };
 
   return (
-    <Container bottomTexts={["it's", 'your', 'world']}>
+    <Container bottomTexts={["it's", "your", "world"]}>
       <View style={styles.mainHeader}>
         <HeaderProfile
           avatar={icon.userAvatar}
-          username='Hey, You'
-          name='Agora'
-          score='432'
-          scoreLabel='connoisseur'
+          username="Hey, You"
+          name="Agora"
+          score="432"
+          scoreLabel="connoisseur"
         />
       </View>
       <HomeVideo>
@@ -95,10 +95,10 @@ export const Profile = () => {
                   )}
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      width: '90%',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      alignItems: "center",
                     }}
                   >
                     <Text style={styles.text}>{item.title}</Text>
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   profileDetails: {
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
   container: {
     paddingHorizontal: 16,
@@ -146,16 +146,16 @@ const styles = StyleSheet.create({
   },
   option: {
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderBottomColor: Colors.grayBroder,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingVertical: 12,
   },
   optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text: {
     fontSize: 16,
@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   },
   directoryText: {
     fontSize: 12,
-    color: 'gray',
+    color: "gray",
     paddingVertical: 4,
   },
   icon: {
@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
     height: 16,
   },
   themeHeader: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 8,
   },
   text1: {
@@ -191,18 +191,18 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 8,
     elevation: 3,
   },
   cardText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   cardView: {
-    justifyContent: 'center',
+    justifyContent: "center",
     // alignItems: 'center',
     width: ScreenWidth,
     paddingHorizontal: 25,

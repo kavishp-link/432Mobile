@@ -10,20 +10,21 @@ import React from "react";
 import { TopBar } from "../../component/customComponent/TopBar";
 import Container from "../../component/customComponent/Container";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { cardMockData } from "../../component/helper/Helper";
+import { cardMockData, insightsData } from "../../component/helper/Helper";
 import { icon } from "../../assets/images/Image";
 import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
 import { PoppinsFonts } from "../../assets/fonts";
 import { Colors } from "../../assets/colors/Colors";
 import { RootStackParamList } from "../../assets/types/Types";
 import MiniCardWithImage from "../../component/customComponent/MiniCardWithImage";
+import MiniCardWithText from "../../component/customComponent/MiniCardWithText";
 
-export const CollectorsVault = () => {
+export const WorkspaceScreen = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
-    <Container bottomTexts={["Art", "is", "Wealth"]}>
+    <Container bottomTexts={["assembly", "of the", "people"]}>
       <TopBar
-        midText={"Collector's Vault"}
+        midText={"Workspace"}
         onLeftPress={() => {
           navigation.goBack();
         }}
@@ -39,14 +40,14 @@ export const CollectorsVault = () => {
         />
       </View>
 
-      <Text style={styles.sectionTitle}>Collected Art</Text>
+      <Text style={styles.sectionTitle}>Insights</Text>
       <View style={styles.divider} />
 
       <FlatList
-        data={cardMockData}
+        data={insightsData}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <MiniCardWithImage
+          <MiniCardWithText
             item={item}
             onPress={() => {
               navigation.navigate("Galleria");
@@ -107,7 +108,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   row: {
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     marginHorizontal: 20,
   },
   divider: {

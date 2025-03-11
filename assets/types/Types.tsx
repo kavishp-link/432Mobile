@@ -6,9 +6,9 @@ export type RootStackParamList = {
   ForgetPassword: undefined;
   Profile: undefined;
   CollectorsVault: undefined;
-
   Galleria: undefined;
   GalleriaCardDetails: undefined;
+  WorkspaceScreen: undefined;
 };
 export type UserDetails = {
   profileType: string;
