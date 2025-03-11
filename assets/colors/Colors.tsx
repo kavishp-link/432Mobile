@@ -12,5 +12,5 @@ export const Colors = {
   lightGry: 'rgba(68, 68, 68, 0.10)',
   halfLightBrow: 'rgba(182, 158, 134, 0.50)',
   borderColor: '#3B3B3B',
-  gray: '#858584',
+  grayBroder: '#3B3B3B',
 };

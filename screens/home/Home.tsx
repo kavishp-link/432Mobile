@@ -15,8 +15,11 @@ import { ScreenHeight, ScreenWidth } from '../../component/helper/Helper';
 import { PoppinsFonts } from '../../assets/fonts';
 import Container from '../../component/customComponent/Container';
 import HomeVideo from '../../component/customComponent/HomeVideo';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../assets/types/Types';
 
-const Home = () => {
+export const Home = () => {
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
     <Container bottomTexts={['we', 'are', 'the', 'collective']}>
       <StatusBar style='light' />
@@ -25,13 +28,16 @@ const Home = () => {
           <Image source={icon.Home432} style={styles.homeIcon} />
         </View>
 
-        <View style={styles.userIcon}>
+        <TouchableOpacity
+          style={styles.userIcon}
+          onPress={() => navigation.navigate('Profile')}
+        >
           <View style={styles.circle}>
             {/* Half Black View */}
             <View style={styles.halfBlack} />
           </View>
           <Image source={icon.Avatar} style={styles.userImage} />
-        </View>
+        </TouchableOpacity>
         <View style={styles.mainHeadingText}>
           <Text style={styles.txet1}>Hey, You</Text>
           <Text style={styles.txet2}>Agora</Text>
@@ -70,8 +76,6 @@ const Home = () => {
     </Container>
   );
 };
-
-export default Home;
 
 const styles = StyleSheet.create({
   mainContainer: {

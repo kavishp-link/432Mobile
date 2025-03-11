@@ -4,8 +4,9 @@ export type RootStackParamList = {
   Register: undefined;
   CreateProfile: undefined;
   ForgetPassword: undefined;
-  Profile: { userId: string };
+  Profile: undefined;
   CollectorsVault: undefined;
+
   Galleria: undefined;
   GalleriaCardDetails: undefined;
 };

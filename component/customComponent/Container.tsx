@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
-import { SafeAreaView, StyleSheet, View, Text } from "react-native";
-import { PoppinsFonts } from "../../assets/fonts";
+import React, { ReactNode } from 'react';
+import { SafeAreaView, StyleSheet, View, Text } from 'react-native';
+import { PoppinsFonts } from '../../assets/fonts';
 
 interface ContainerProps {
   children: ReactNode;
@@ -30,21 +30,21 @@ const Container: React.FC<ContainerProps> = ({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#14161A",
+    backgroundColor: '#14161A',
   },
   container: {
     flex: 1,
   },
   bottomContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingBottom: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingBottom: 5,
     marginHorizontal: 20,
   },
   bottomText: {
-    color: "#fff",
-    fontSize: 14,
+    color: '#fff',
+    fontSize: 10,
     fontFamily: PoppinsFonts.Regular,
     letterSpacing: 4,
   },

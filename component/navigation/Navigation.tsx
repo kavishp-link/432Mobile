@@ -9,8 +9,9 @@ import {
   GalleriaCardDetails,
   Login,
   Register,
+  Home,
+  Profile,
 } from '../../screens';
-import Home from '../../screens/home/Home';
 
 const Stack = createStackNavigator();
 
@@ -41,6 +42,11 @@ export const Navigation = () => {
         <Stack.Screen
           name='Home'
           component={Home}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Profile'
+          component={Profile}
           options={{ headerShown: false }}
         />
         <Stack.Screen

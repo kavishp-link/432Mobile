@@ -1,7 +1,7 @@
-import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
-import { PoppinsFonts } from "../../assets/fonts";
-import { Colors } from "../../assets/colors/Colors";
+import React from 'react';
+import { View, Text, Image, StyleSheet } from 'react-native';
+import { PoppinsFonts } from '../../assets/fonts';
+import { Colors } from '../../assets/colors/Colors';
 
 export const HeaderProfile = ({
   avatar,
@@ -14,7 +14,7 @@ export const HeaderProfile = ({
     <View style={styles.header}>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           //   alignItems: "center",
         }}
       >
@@ -35,9 +35,9 @@ export const HeaderProfile = ({
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     marginHorizontal: 35,
   },
   avatar: {
@@ -47,22 +47,22 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   username: {
-    color: Colors.gray,
+    color: Colors.BattleshipGray,
     fontSize: 16,
     fontFamily: PoppinsFonts.Regular,
   },
   name: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
     fontFamily: PoppinsFonts.SemiBold,
   },
   scoreContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   score: {
     color: Colors.white,
     fontSize: 35,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontFamily: PoppinsFonts.Bold,
     letterSpacing: 10,
   },
