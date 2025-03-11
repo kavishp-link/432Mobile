@@ -150,3 +150,54 @@ export const insightsData = [
     subtitle: "Assets on blockchain",
   },
 ];
+
+export const graphMockData = {
+  performance: [
+    { day: "1", value: 20 },
+    { day: "5", value: 50 },
+    { day: "10", value: 100 },
+    { day: "15", value: 80 },
+    { day: "20", value: 120 },
+    { day: "25", value: 150 },
+    { day: "30", value: 200 },
+  ],
+  royaltyGrowth: 22, // Percentage growth
+
+  funnelData: [
+    {
+      name: "Awareness",
+      population: 100,
+      color: "#50E3C2",
+      legendFontColor: "#fff",
+      legendFontSize: 12,
+    },
+    {
+      name: "Consideration",
+      population: 85,
+      color: "#38D1EE",
+      legendFontColor: "#fff",
+      legendFontSize: 12,
+    },
+    {
+      name: "Preference",
+      population: 47,
+      color: "#1A91DA",
+      legendFontColor: "#fff",
+      legendFontSize: 12,
+    },
+    {
+      name: "Conversion",
+      population: 25,
+      color: "#1473A2",
+      legendFontColor: "#fff",
+      legendFontSize: 12,
+    },
+    {
+      name: "Loyalty",
+      population: 15,
+      color: "#0F5277",
+      legendFontColor: "#fff",
+      legendFontSize: 12,
+    },
+  ],
+};

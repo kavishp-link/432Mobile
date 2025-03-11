@@ -11,11 +11,7 @@ import Container from "../../component/customComponent/Container";
 import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
 import { icon } from "../../assets/images/Image";
 import HomeVideo from "../../component/customComponent/HomeVideo";
-import {
-  ScreenWidth,
-  settingsOptions,
-  themeImage,
-} from "../../component/helper/Helper";
+import { ScreenWidth, themeImage } from "../../component/helper/Helper";
 import { PoppinsFonts } from "../../assets/fonts";
 import { Colors } from "../../assets/colors/Colors";
 import BottomSheet from "../../component/customComponent/BottomSheet";
@@ -44,7 +40,7 @@ export const Profile = () => {
   const cardSizeHeight = ScreenWidth / 3 - 25;
   // console.log('ScreenWidth', data);
 
-  const GridItem = (item) => {
+  const GridItem = (item: any) => {
     return (
       <View style={[styles.card, { width: cardSize, height: cardSizeHeight }]}>
         <Image

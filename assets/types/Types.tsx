@@ -9,6 +9,7 @@ export type RootStackParamList = {
   Galleria: undefined;
   GalleriaCardDetails: undefined;
   WorkspaceScreen: undefined;
+  WorkspaceGraph: undefined;
 };
 export type UserDetails = {
   profileType: string;

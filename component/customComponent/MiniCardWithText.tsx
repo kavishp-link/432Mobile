@@ -1,11 +1,11 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { PoppinsFonts } from "../../assets/fonts";
 import { Colors } from "../../assets/colors/Colors";
 
-const MiniCardWithText = ({ item }: any) => {
+const MiniCardWithText = ({ item, onPress }: any) => {
   return (
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <View style={styles.textContainer}>
         <Text style={styles.title} numberOfLines={2} allowFontScaling={false}>
           {item.title}
@@ -18,7 +18,7 @@ const MiniCardWithText = ({ item }: any) => {
           {item.subtitle}
         </Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

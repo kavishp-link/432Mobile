@@ -8,6 +8,7 @@ import { Register } from "./register/Register";
 import { Home } from "./home/Home";
 import { Profile } from "./profile/Profile";
 import { WorkspaceScreen } from "./workspace/Workspace";
+import { WorkspaceGraph } from "./workspace/partials/WorkspaceGraph";
 export {
   CollectorsVault,
   Login,
@@ -19,4 +20,5 @@ export {
   Home,
   Profile,
   WorkspaceScreen,
+  WorkspaceGraph,
 };

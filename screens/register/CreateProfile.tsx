@@ -6,28 +6,28 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useState } from 'react';
-import { PoppinsFonts } from '../../assets/fonts';
+} from "react-native";
+import React, { useState } from "react";
+import { PoppinsFonts } from "../../assets/fonts";
 import {
   inputFields,
   ProfileType,
   ScreenWidth,
   SocialLinkIcon,
-} from '../../component/helper/Helper';
-import { Colors } from '../../assets/colors/Colors';
-import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
-import { RootStackParamList, UserDetails } from '../../assets/types/Types';
-import { Dropdown } from 'react-native-element-dropdown';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+} from "../../component/helper/Helper";
+import { Colors } from "../../assets/colors/Colors";
+import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
+import { RootStackParamList, UserDetails } from "../../assets/types/Types";
+import { Dropdown } from "react-native-element-dropdown";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 export const CreateProfile = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [userDetails, setUserDetails] = useState<UserDetails | any>({
-    profileType: '',
-    location: '',
-    portfolio: '',
-    bio: '',
+    profileType: "",
+    location: "",
+    portfolio: "",
+    bio: "",
   });
 
   const handleChange = <T extends keyof UserDetails>(key: T, value: string) => {
@@ -52,13 +52,13 @@ export const CreateProfile = () => {
               containerStyle={styles.containerStyle}
               itemTextStyle={styles.itemTextStyle}
               placeholderStyle={styles.placeholderStyle}
-              onChange={(item) => handleChange('profileType', item.label)}
+              onChange={(item) => handleChange("profileType", item.label)}
               data={ProfileType}
               search={false}
               value={userDetails?.profileType} // Ensure this updates
-              labelField='label'
-              valueField='value'
-              placeholder='Profile Type'
+              labelField="label"
+              valueField="value"
+              placeholder="Profile Type"
             />
           </View>
           {inputFields?.map(
@@ -94,12 +94,7 @@ export const CreateProfile = () => {
           </View>
         </View>
         <View style={styles.SubmitContainer}>
-          <TouchableOpacity
-            style={styles.SubmitButton}
-            onPress={() => {
-              navigation.navigate('CollectorsVault');
-            }}
-          >
+          <TouchableOpacity style={styles.SubmitButton} onPress={() => {}}>
             <Text style={styles.SubmitText}>Submit</Text>
           </TouchableOpacity>
         </View>
@@ -113,8 +108,8 @@ const styles = StyleSheet.create({
     height: 500,
   },
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: 40,
   },
   firstHeading: {
@@ -126,7 +121,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   inputContainer: {
-    position: 'relative',
+    position: "relative",
     height: 46,
     backgroundColor: Colors.white,
 
@@ -134,16 +129,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   placeholderContainer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
+    position: "absolute",
+    flexDirection: "row",
+    alignItems: "center",
     left: 20,
   },
   placeholderText: {
-    color: '#BDBDBD',
+    color: "#BDBDBD",
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 8,
@@ -155,7 +150,7 @@ const styles = StyleSheet.create({
 
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   inputIconEmail: {
     height: 15,
@@ -174,8 +169,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 10,
     borderRadius: 23,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   SubmitText: {
     fontSize: 16,
@@ -189,13 +184,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   placeholderStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   itemContainerStyle: {},
   containerStyle: {
@@ -204,20 +199,20 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     fontFamily: PoppinsFonts.Regular,
     fontSize: 14,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   selectedTextStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: '#BDBDBD',
+    color: "#BDBDBD",
   },
   socialContainer: {
     paddingTop: 20,
     paddingRight: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   socialTextView: {},
   socialText: {
@@ -226,9 +221,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   socialIconView: {
-    flexDirection: 'row',
+    flexDirection: "row",
 
-    width: 'auto',
+    width: "auto",
   },
   socialIcon: {
     width: 32,

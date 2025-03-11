@@ -12,6 +12,7 @@ import {
   Home,
   Profile,
   WorkspaceScreen,
+  WorkspaceGraph,
 } from "../../screens";
 
 const Stack = createStackNavigator();
@@ -68,6 +69,11 @@ export const Navigation = () => {
         <Stack.Screen
           name="WorkspaceScreen"
           component={WorkspaceScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="WorkspaceGraph"
+          component={WorkspaceGraph}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

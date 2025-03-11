@@ -16,7 +16,6 @@ import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
 import { PoppinsFonts } from "../../assets/fonts";
 import { Colors } from "../../assets/colors/Colors";
 import { RootStackParamList } from "../../assets/types/Types";
-import MiniCardWithImage from "../../component/customComponent/MiniCardWithImage";
 import MiniCardWithText from "../../component/customComponent/MiniCardWithText";
 
 export const WorkspaceScreen = () => {
@@ -49,8 +48,9 @@ export const WorkspaceScreen = () => {
         renderItem={({ item }) => (
           <MiniCardWithText
             item={item}
+            isDisable={false}
             onPress={() => {
-              navigation.navigate("Galleria");
+              navigation.navigate("WorkspaceGraph");
             }}
           />
         )}
