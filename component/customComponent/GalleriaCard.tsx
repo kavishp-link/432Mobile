@@ -8,8 +8,11 @@ interface GalleryCardProps {
   imageUrl: any;
   title: string;
   author: string;
-  collectiblesCount: number;
-  onPress: any;
+  collectiblesCount?: number;
+  price?: string;
+  vaults?: number;
+  time?: string;
+  onPress: () => void;
   isDisable?: boolean;
 }
 
@@ -18,6 +21,9 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
   title,
   author,
   collectiblesCount,
+  price,
+  vaults,
+  time,
   onPress,
   isDisable,
 }) => {
@@ -29,18 +35,48 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
     >
       <Image source={imageUrl} style={styles.image} />
       <View style={styles.content}>
-        <Text style={styles.title} numberOfLines={3}>
+        {time && (
+          <Text style={styles.time} numberOfLines={2}>
+            {time}
+          </Text>
+        )}
+        <Text style={styles.title} numberOfLines={2}>
           {title}
         </Text>
         <View style={styles.authorContainer}>
           <Image source={icon.userAvatar} style={styles.avatar} />
-          <Text style={styles.author} numberOfLines={2}>
+          <Text style={styles.author} numberOfLines={1}>
             {author}
           </Text>
         </View>
-        <Text style={styles.collectibles}>
-          {collectiblesCount} collectibles
-        </Text>
+        {collectiblesCount !== undefined ? (
+          <Text style={styles.collectibles}>
+            {collectiblesCount} collectibles
+          </Text>
+        ) : (
+          <View style={{ marginVertical: 10 }}>
+            {price && (
+              <>
+                <Text
+                  style={{
+                    fontFamily: PoppinsFonts.Regular,
+                    color: Colors.BattleshipGray,
+                    marginVertical: 2,
+                  }}
+                  numberOfLines={2}
+                >
+                  Price
+                </Text>
+                <Text style={styles.price} numberOfLines={2}>
+                  {price} ETH
+                </Text>
+              </>
+            )}
+            {vaults !== undefined && (
+              <Text style={styles.vaults}>in {vaults} vaults</Text>
+            )}
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );
@@ -54,16 +90,23 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 12,
     alignItems: "center",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   image: {
     width: 147,
-    height: 137,
+    height: 147,
     borderRadius: 20,
+    alignSelf: "flex-start",
   },
   content: {
     flex: 1,
-    marginLeft: 25,
+    marginLeft: 20,
+  },
+  time: {
+    color: "#858584",
+    fontSize: 12,
+    fontFamily: PoppinsFonts.Regular,
+    marginBottom: 2,
   },
   title: {
     color: Colors.white,
@@ -73,8 +116,7 @@ const styles = StyleSheet.create({
   authorContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 4,
-    paddingRight: 20,
+    marginTop: 5,
   },
   avatar: {
     width: 20,
@@ -86,12 +128,22 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 14,
     fontFamily: PoppinsFonts.Medium,
-    marginVertical: 10,
   },
   collectibles: {
     color: "#858584",
     fontSize: 12,
-    marginTop: 4,
+    marginVertical: 4,
+    fontFamily: PoppinsFonts.Regular,
+  },
+  price: {
+    color: Colors.white,
+    fontSize: 16,
+    fontFamily: PoppinsFonts.SemiBold,
+    marginBottom: 5,
+  },
+  vaults: {
+    color: Colors.BattleshipGray,
+    fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
   },
 });

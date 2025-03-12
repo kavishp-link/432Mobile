@@ -18,6 +18,7 @@ import { Colors } from "../../../assets/colors/Colors";
 import { GalleriaCard } from "../../../component/customComponent/GalleriaCard";
 import {
   cardMockData,
+  galleriaCardMockData,
   galleriaMockData,
 } from "../../../component/helper/Helper";
 import { RootStackParamList } from "../../../assets/types/Types";
@@ -71,7 +72,7 @@ export const GalleriaCardDetails = () => {
         <Text style={styles.sectionTitle}>The sun and the moon</Text>
         <View style={styles.divider} />
         <FlatList
-          data={galleriaMockData}
+          data={galleriaCardMockData}
           scrollEnabled={false}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
