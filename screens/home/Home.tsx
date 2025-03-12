@@ -20,6 +20,12 @@ import { RootStackParamList } from '../../assets/types/Types';
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const handlePlazaPress = () => {
+    navigation.navigate('Plaza');
+  };
+  const handleVaultPress = () => {
+    navigation.navigate('CollectorsVault');
+  };
   return (
     <Container bottomTexts={['we', 'are', 'the', 'collective']}>
       <StatusBar style='light' />
@@ -42,36 +48,12 @@ export const Home = () => {
           <Text style={styles.txet1}>Hey, You</Text>
           <Text style={styles.txet2}>Agora</Text>
         </View>
-        <HomeVideo />
-        {/* <View style={styles.mainView}>
-          <View style={styles.videoTopContainer}>
-            <TouchableOpacity style={styles.plaza}>
-              <Image source={icon.play} style={styles.playIcon} />
-              <Text style={styles.mainContainerTxet}>Plazz</Text>
-            </TouchableOpacity>
-            <Video
-              source={background}
-              ref={videoRef}
-              repeat={true}
-              style={styles.video}
-              resizeMode='cover'
-            />
-          </View>
-          <View style={styles.midContainer}></View>
-          <View style={styles.videoBottomContainer}>
-            <TouchableOpacity style={styles.plaza}>
-              <Image source={icon.play} style={styles.playIcon} />
-              <Text style={styles.mainContainerTxet2}>Collector's Vault</Text>
-            </TouchableOpacity>
-            <Video
-              source={background}
-              ref={videoRef}
-              repeat={true}
-              style={styles.video}
-              resizeMode='cover'
-            />
-          </View>
-        </View> */}
+        <HomeVideo
+          topTitle='Plaza'
+          bottomTitle="Collector's Vault"
+          onTopPress={handlePlazaPress}
+          onBottomPress={handleVaultPress}
+        />
       </View>
     </Container>
   );

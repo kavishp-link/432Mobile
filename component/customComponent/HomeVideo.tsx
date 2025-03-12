@@ -1,59 +1,116 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef } from "react";
-
-import Video, { VideoRef } from "react-native-video";
-import { icon } from "../../assets/images/Image";
-import { PoppinsFonts } from "../../assets/fonts";
-import { Colors } from "../../assets/colors/Colors";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../assets/types/Types";
-
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, { useRef } from 'react';
+import Video, { VideoRef } from 'react-native-video';
+import { icon } from '../../assets/images/Image';
+import { PoppinsFonts } from '../../assets/fonts';
+import { Colors } from '../../assets/colors/Colors';
+import { ViewStyle } from 'react-native';
 interface HomeVideoProps {
   children?: React.ReactNode;
+  topTitle?: string; // Title for the top button
+  bottomTitle?: string; // Title for the bottom button
+  onTopPress?: () => void; // Function for top button press
+  onBottomPress?: () => void; // Function for bottom button press
 }
 
-const HomeVideo: React.FC<HomeVideoProps> = ({ children }) => {
+const HomeVideo: React.FC<HomeVideoProps> = ({
+  children,
+  topTitle = 'Plaza',
+  bottomTitle = "Collector's Vault",
+  onTopPress,
+  onBottomPress,
+}) => {
   const videoRef = useRef<VideoRef>(null);
-  const background = require("../../assets/demo.mp4");
-  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const background = require('../../assets/demo.mp4');
+
+  // Function to determine dynamic styles
+
+  const getContainerStyle = (title: string): ViewStyle => {
+    const isSmallRounded =
+      title === 'Frequency Baazaar' || title === 'Galleria';
+    const isCollectorVault = title === `Collector's Vault`;
+    const isPlaza = title === 'Plaza';
+    console.log('isSmallRounded', isSmallRounded);
+
+    return {
+      width: isSmallRounded ? 380 : 300,
+      height: isSmallRounded ? 310 : 160,
+
+      borderRadius: isSmallRounded ? 12 : 0, // Small rounded for Frequency Bazaar & Galleria
+
+      borderTopLeftRadius: isSmallRounded ? 12 : isPlaza ? 150 : 0,
+      borderTopRightRadius: isSmallRounded ? 12 : isPlaza ? 150 : 0,
+
+      borderBottomLeftRadius: isSmallRounded ? 12 : isCollectorVault ? 150 : 0,
+      borderBottomRightRadius: isSmallRounded ? 12 : isCollectorVault ? 150 : 0,
+
+      overflow: 'hidden' as 'hidden', // Fix TypeScript error
+    };
+  };
 
   return (
     <View style={styles.mainView}>
-      <View style={styles.videoTopContainer}>
-        <TouchableOpacity style={styles.plaza}>
-          <Image source={icon.play} style={styles.playIcon} />
-          <Text style={styles.mainContainerTxet}>Plazz</Text>
+      {/* Top Video Section */}
+      <View style={[styles.videoContainer, getContainerStyle(topTitle)]}>
+        <TouchableOpacity
+          style={[
+            topTitle === 'Plaza' ? styles.plaza : styles.frequencyBaazaar,
+          ]}
+          onPress={onTopPress}
+        >
+          {topTitle === 'Plaza' && (
+            <Image source={icon.play} style={styles.playIcon} />
+          )}
+
+          <Text style={styles.mainContainerText}>{topTitle}</Text>
         </TouchableOpacity>
         <Video
           source={background}
           ref={videoRef}
           repeat={true}
+          paused={true}
           style={styles.video}
-          resizeMode="cover"
+          resizeMode='cover'
         />
       </View>
 
-      {/* Dynamically adjust height based on children */}
-      <View style={[styles.midContainer, { height: children ? "auto" : 10 }]}>
+      {/* Dynamic Child Content */}
+      <View
+        style={[
+          styles.midContainer,
+          {
+            height: children
+              ? 'auto'
+              : topTitle === 'Frequency Baazaar' || bottomTitle === 'Galleria'
+              ? 15
+              : 10,
+          },
+        ]}
+      >
         {children}
       </View>
 
-      <View style={styles.videoBottomContainer}>
+      {/* Bottom Video Section */}
+      <View style={[styles.videoContainer, getContainerStyle(bottomTitle)]}>
         <TouchableOpacity
-          style={styles.plaza}
-          onPress={() => {
-            navigation.navigate("CollectorsVault");
-          }}
+          style={[
+            topTitle === "Collector's Vault" ? styles.plaza : styles.Galleria,
+          ]}
+          onPress={onBottomPress}
         >
-          <Image source={icon.play} style={styles.playIcon} />
-          <Text style={styles.mainContainerTxet2}>Collector's Vault</Text>
+          {topTitle === "Collector's Vault" && (
+            <Image source={icon.play} style={styles.playIcon} />
+          )}
+
+          <Text style={[styles.mainContainerText]}>{bottomTitle}</Text>
         </TouchableOpacity>
         <Video
           source={background}
           ref={videoRef}
           repeat={true}
+          paused={true}
           style={styles.video}
-          resizeMode="cover"
+          resizeMode='cover'
         />
       </View>
     </View>
@@ -65,57 +122,59 @@ export default HomeVideo;
 const styles = StyleSheet.create({
   mainView: {
     paddingTop: 25,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  videoTopContainer: {
-    width: 300,
-    height: 160,
-    borderTopLeftRadius: 150,
-    borderTopRightRadius: 150,
-    overflow: "hidden",
-  },
-  videoBottomContainer: {
-    width: 300,
-    height: 160,
-    borderBottomLeftRadius: 150,
-    borderBottomRightRadius: 150,
-    overflow: "hidden",
-    position: "relative",
+  videoContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   video: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
   },
   midContainer: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   plaza: {
-    position: "absolute",
-    top: 35,
-    left: "41%",
+    position: 'absolute',
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 2,
-    paddingHorizontal: 10,
     paddingVertical: 5,
-    borderRadius: 10,
   },
   playIcon: {
     width: 32,
     height: 32,
-    left: 5,
   },
-  mainContainerTxet: {
+  mainContainerText: {
     paddingTop: 10,
-    fontSize: 16,
+    fontSize: 18,
     fontFamily: PoppinsFonts.SemiBold,
     color: Colors.white,
+    textAlign: 'center',
+    width: 170,
   },
-  mainContainerTxet2: {
-    paddingTop: 10,
-    fontSize: 16,
-    right: 45,
-    fontFamily: PoppinsFonts.SemiBold,
-    color: Colors.white,
+  frequencyBaazaar: {
+    position: 'absolute',
+
+    zIndex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    paddingVertical: 5,
+  },
+  Galleria: {
+    position: 'absolute',
+
+    zIndex: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+
+    width: '100%',
+
+    paddingVertical: 5,
   },
 });

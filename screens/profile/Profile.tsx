@@ -5,65 +5,73 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useRef } from "react";
-import Container from "../../component/customComponent/Container";
-import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
-import { icon } from "../../assets/images/Image";
-import HomeVideo from "../../component/customComponent/HomeVideo";
-import { ScreenWidth, themeImage } from "../../component/helper/Helper";
-import { PoppinsFonts } from "../../assets/fonts";
-import { Colors } from "../../assets/colors/Colors";
-import BottomSheet from "../../component/customComponent/BottomSheet";
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import Container from '../../component/customComponent/Container';
+import { HeaderProfile } from '../../component/customComponent/HeaderProfile';
+import { icon } from '../../assets/images/Image';
+import HomeVideo from '../../component/customComponent/HomeVideo';
+import { ScreenWidth, themeImage } from '../../component/helper/Helper';
+import { PoppinsFonts } from '../../assets/fonts';
+import { Colors } from '../../assets/colors/Colors';
+import BottomSheet from '../../component/customComponent/BottomSheet';
+import { ThemeItem } from '../../assets/types/Types';
 
+const cardSize = ScreenWidth / 3 - 40;
+const cardSizeHeight = ScreenWidth / 3 - 25;
 export const Profile = () => {
+  const [selectedImage, setSelectedImage] = useState<any>(null);
   const refRBSheet = useRef<any>();
   const settingsOptions = [
     {
-      title: "Personal Details",
-      onPress: () => console.log("Personal Details Pressed"),
+      title: 'Personal Details',
+      onPress: () => console.log('Personal Details Pressed'),
     },
     {
-      title: "Account Security & Privacy",
-      onPress: () => console.log("Account Security & Privacy Pressed"),
+      title: 'Account Security & Privacy',
+      onPress: () => console.log('Account Security & Privacy Pressed'),
     },
     {
-      title: "Theme",
+      title: 'Theme',
       onPress: () => refRBSheet.current.open(),
       icon: icon.rightdrop,
       themeIcon: icon.themeIcon,
     },
   ];
 
-  // const data = images.map((image, index) => ({ id: index.toString(), image }));
-  const cardSize = ScreenWidth / 3 - 40;
-  const cardSizeHeight = ScreenWidth / 3 - 25;
-  // console.log('ScreenWidth', data);
-
-  const GridItem = (item: any) => {
+  const GridItem: React.FC<{
+    item: ThemeItem;
+    onSelect: (url: any) => void;
+  }> = ({ item, onSelect }) => {
     return (
-      <View style={[styles.card, { width: cardSize, height: cardSizeHeight }]}>
+      <TouchableOpacity
+        style={[styles.card, { width: cardSize, height: cardSizeHeight }]}
+        onPress={() => onSelect(item.icon)}
+      >
+        <Image source={icon.themepen} style={styles.themePen} />
         <Image
-          source={item.item.icon}
+          source={
+            typeof item.icon === 'string' ? { uri: item.icon } : item.icon
+          }
           style={{
             width: cardSize * 1.15,
             height: cardSize * 1.15,
-            resizeMode: "contain",
+            resizeMode: 'contain',
           }}
         />
-      </View>
+      </TouchableOpacity>
     );
   };
 
   return (
-    <Container bottomTexts={["it's", "your", "world"]}>
+    <Container bottomTexts={["it's", 'your', 'world']}>
       <View style={styles.mainHeader}>
         <HeaderProfile
           avatar={icon.userAvatar}
-          username="Hey, You"
-          name="Agora"
-          score="432"
-          scoreLabel="connoisseur"
+          username='Hey, You'
+          name='Agora'
+          score='432'
+          scoreLabel='connoisseur'
         />
       </View>
       <HomeVideo>
@@ -91,10 +99,10 @@ export const Profile = () => {
                   )}
                   <View
                     style={{
-                      flexDirection: "row",
-                      justifyContent: "space-between",
-                      width: "90%",
-                      alignItems: "center",
+                      flexDirection: 'row',
+                      justifyContent: 'space-between',
+                      width: '90%',
+                      alignItems: 'center',
                     }}
                   >
                     <Text style={styles.text}>{item.title}</Text>
@@ -116,7 +124,9 @@ export const Profile = () => {
         <View style={styles.cardView}>
           <FlatList
             data={themeImage}
-            renderItem={({ item }) => <GridItem item={item} />}
+            renderItem={({ item }) => (
+              <GridItem item={item} onSelect={setSelectedImage} />
+            )}
             keyExtractor={(item) => item.id}
             numColumns={3}
             contentContainerStyle={styles.container}
@@ -133,7 +143,7 @@ const styles = StyleSheet.create({
   },
   profileDetails: {
     flex: 1,
-    alignContent: "center",
+    alignContent: 'center',
   },
   container: {
     paddingHorizontal: 16,
@@ -142,16 +152,16 @@ const styles = StyleSheet.create({
   },
   option: {
     borderBottomWidth: 1,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomColor: Colors.grayBroder,
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     paddingVertical: 12,
   },
   optionRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   text: {
     fontSize: 16,
@@ -160,7 +170,7 @@ const styles = StyleSheet.create({
   },
   directoryText: {
     fontSize: 12,
-    color: "gray",
+    color: 'gray',
     paddingVertical: 4,
   },
   icon: {
@@ -172,8 +182,8 @@ const styles = StyleSheet.create({
     height: 16,
   },
   themeHeader: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 8,
   },
   text1: {
@@ -186,21 +196,27 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.SemiBold,
   },
   card: {
-    margin: 5,
-    justifyContent: "center",
-    alignItems: "center",
+    margin: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 8,
     elevation: 3,
   },
   cardText: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 16,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   cardView: {
-    justifyContent: "center",
+    justifyContent: 'center',
     // alignItems: 'center',
     width: ScreenWidth,
     paddingHorizontal: 25,
+  },
+  themePen: {
+    position: 'absolute',
+    zIndex: 2,
+    width: 26,
+    height: 27,
   },
 });

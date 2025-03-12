@@ -10,10 +10,17 @@ export type RootStackParamList = {
   GalleriaCardDetails: undefined;
   WorkspaceScreen: undefined;
   WorkspaceGraph: undefined;
+  Plaza: undefined;
+  FrequencyBaazaar: undefined;
 };
 export type UserDetails = {
   profileType: string;
   location: string;
   portfolio: string;
   bio: string;
+};
+export type ThemeItem = {
+  id: string;
+  icon: any; // Can be a require() or URI string
+  url: string;
 };
