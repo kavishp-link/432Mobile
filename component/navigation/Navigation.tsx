@@ -15,7 +15,10 @@ import {
   WorkspaceGraph,
   FrequencyBaazaar,
   Plaza,
+  Genres,
+  MusicWorld,
 } from '../../screens';
+import ThemePreview from '../customComponent/ThemePreview';
 
 const Stack = createStackNavigator();
 
@@ -86,6 +89,21 @@ export const Navigation = () => {
         <Stack.Screen
           name='Plaza'
           component={Plaza}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Genres'
+          component={Genres}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='MusicWorld'
+          component={MusicWorld}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='ThemePreview'
+          component={ThemePreview}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

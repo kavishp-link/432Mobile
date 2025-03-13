@@ -1,4 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import {
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import React, { useRef } from 'react';
 import Container from '../../component/customComponent/Container';
 import { TopBar } from '../../component/customComponent/TopBar';
@@ -9,14 +16,17 @@ import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../assets/types/Types';
 import { Carousel } from '../../component/customComponent/CarousalItem';
 import Video, { VideoRef } from 'react-native-video';
-import { ScreenWidth } from '../../component/helper/Helper';
+import {
+  galleriaCardMockData,
+  galleriaMockData,
+  ScreenWidth,
+} from '../../component/helper/Helper';
 import { Colors } from '../../assets/colors/Colors';
 import { PoppinsFonts } from '../../assets/fonts';
+import { GalleriaCard } from '../../component/customComponent/GalleriaCard';
 
 export const FrequencyBaazaar = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const background = require('../../assets/demo.mp4');
-  const videoRef = useRef<VideoRef>(null);
   return (
     <Container bottomTexts={['art', 'is', 'wealth']}>
       <TopBar
@@ -24,6 +34,7 @@ export const FrequencyBaazaar = () => {
         onLeftPress={() => navigation.goBack()}
         midText={'Frequency Baazaar'}
       />
+
       <View style={styles.headerView}>
         <HeaderProfile
           avatar={icon.userAvatar}
@@ -33,21 +44,48 @@ export const FrequencyBaazaar = () => {
           scoreLabel='connoisseur'
         />
         <View style={styles.tabContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Genres')}>
             <Text style={styles.tabText}>Genres</Text>
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('MusicWorld')}>
             <Text style={styles.tabText}>Music Worldwide</Text>
           </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.carouselMainView}>
-        <Text style={styles.carouselText}>Recommendations for You</Text>
-
-        <Carousel />
-        <Text style={styles.exploreMarket}>Explore the Market</Text>
-      </View>
+      <FlatList
+        data={galleriaCardMockData}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <View style={{ paddingTop: 20 }}>
+            <GalleriaCard {...item} isDisable={false} />
+          </View>
+        )}
+        contentContainerStyle={{ paddingBottom: 10 }}
+        ListHeaderComponent={
+          <View style={styles.carouselMainView}>
+            <Text style={styles.carouselText}>Recommendations for You</Text>
+            <Carousel />
+            <Text style={styles.exploreMarket}>Explore the Market</Text>
+          </View>
+        }
+      />
+      {/* <ScrollView>
+        <View style={styles.carouselMainView}>
+          <Text style={styles.carouselText}>Recommendations for You</Text>
+          <Carousel />
+          <Text style={styles.exploreMarket}>Explore the Market</Text>
+        </View>
+        <View style={styles.marketContainer}>
+          <FlatList
+            data={galleriaCardMockData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item }) => (
+              <GalleriaCard {...item} isDisable={false} />
+            )}
+            contentContainerStyle={{ marginHorizontal: 20 }}
+          />
+        </View>
+      </ScrollView> */}
     </Container>
   );
 };
@@ -83,7 +121,7 @@ const styles = StyleSheet.create({
   },
   carouselText: {
     fontFamily: PoppinsFonts.Regular,
-    fontSize: 15,
+    fontSize: 16,
     color: Colors.white,
 
     paddingBottom: 10,
@@ -92,9 +130,11 @@ const styles = StyleSheet.create({
   },
   exploreMarket: {
     fontFamily: PoppinsFonts.Regular,
-    fontSize: 15,
+    fontSize: 16,
     color: Colors.white,
-
-    alignSelf: 'center',
+    paddingLeft: 25,
+  },
+  marketContainer: {
+    paddingTop: 25,
   },
 });

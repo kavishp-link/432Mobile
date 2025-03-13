@@ -12,6 +12,9 @@ export type RootStackParamList = {
   WorkspaceGraph: undefined;
   Plaza: undefined;
   FrequencyBaazaar: undefined;
+  Genres: undefined;
+  MusicWorld: undefined;
+  ThemePreview: { url: string };
 };
 export type UserDetails = {
   profileType: string;

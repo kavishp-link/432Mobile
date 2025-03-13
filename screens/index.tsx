@@ -11,6 +11,8 @@ import { WorkspaceScreen } from './workspace/Workspace';
 import { WorkspaceGraph } from './workspace/partials/WorkspaceGraph';
 import { Plaza } from './plaza/Plaza';
 import { FrequencyBaazaar } from './frequencyBaazaar/FrequencyBaazaar';
+import { Genres } from './genres/Genres';
+import { MusicWorld } from './musicWorld/MusicWorld';
 export {
   CollectorsVault,
   Login,
@@ -25,4 +27,6 @@ export {
   WorkspaceGraph,
   Plaza,
   FrequencyBaazaar,
+  Genres,
+  MusicWorld,
 };

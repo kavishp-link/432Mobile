@@ -1,8 +1,8 @@
 // components/CollectionCard.js
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { PoppinsFonts } from "../../assets/fonts";
-import { Colors } from "../../assets/colors/Colors";
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { PoppinsFonts } from '../../assets/fonts';
+import { Colors } from '../../assets/colors/Colors';
 
 const MiniCardWithImage = ({ item, onPress }: any) => {
   return (
@@ -13,19 +13,21 @@ const MiniCardWithImage = ({ item, onPress }: any) => {
       <View
         style={{
           padding: 10,
-          alignSelf: "flex-start",
+          alignSelf: 'flex-start',
         }}
       >
         <Text style={styles.title} numberOfLines={2} allowFontScaling={false}>
-          {item.title}
+          {item?.title}
         </Text>
-        <Text
-          style={styles.subtitle}
-          numberOfLines={2}
-          allowFontScaling={false}
-        >
-          {item.subtitle}{" "}
-        </Text>
+        {item?.subtitle && (
+          <Text
+            style={styles.subtitle}
+            numberOfLines={2}
+            allowFontScaling={false}
+          >
+            {item.subtitle}{' '}
+          </Text>
+        )}
       </View>
     </View>
   );
@@ -33,14 +35,14 @@ const MiniCardWithImage = ({ item, onPress }: any) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1F1F1F",
+    backgroundColor: '#1F1F1F',
     borderRadius: 10,
     marginBottom: 15,
-    width: "45%",
-    alignItems: "center",
+    width: '45%',
+    alignItems: 'center',
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 123,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -49,13 +51,13 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 16,
     fontFamily: PoppinsFonts.SemiBold,
-    textAlign: "left",
+    textAlign: 'left',
   },
   subtitle: {
-    color: "#aaa",
+    color: '#aaa',
     fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
-    textAlign: "left",
+    textAlign: 'left',
     marginVertical: 5,
   },
 });

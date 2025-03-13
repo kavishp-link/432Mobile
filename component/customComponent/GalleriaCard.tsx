@@ -1,8 +1,9 @@
-import React from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
-import { PoppinsFonts } from "../../assets/fonts";
-import { Colors } from "../../assets/colors/Colors";
-import { icon } from "../../assets/images/Image";
+import React, { useState } from 'react';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { PoppinsFonts } from '../../assets/fonts';
+import { Colors } from '../../assets/colors/Colors';
+import { icon } from '../../assets/images/Image';
+import { DetailsModal } from './DetailsModal';
 
 interface GalleryCardProps {
   imageUrl: any;
@@ -12,7 +13,7 @@ interface GalleryCardProps {
   price?: string;
   vaults?: number;
   time?: string;
-  onPress: () => void;
+  onPress?: () => void;
   isDisable?: boolean;
 }
 
@@ -27,83 +28,93 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
   onPress,
   isDisable,
 }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const onCardPress = () => {
+    setModalVisible(true);
+  };
+  const closeModal = () => {
+    setModalVisible(false);
+  };
   return (
-    <TouchableOpacity
-      style={styles.card}
-      disabled={isDisable}
-      onPress={onPress}
-    >
-      <Image source={imageUrl} style={styles.image} />
-      <View style={styles.content}>
-        {time && (
-          <Text style={styles.time} numberOfLines={2}>
-            {time}
+    <>
+      <TouchableOpacity
+        style={styles.card}
+        disabled={isDisable}
+        onPress={onCardPress}
+      >
+        <Image source={imageUrl} style={styles.image} />
+        <View style={styles.content}>
+          {time && (
+            <Text style={styles.time} numberOfLines={2}>
+              {time}
+            </Text>
+          )}
+          <Text style={styles.title} numberOfLines={2}>
+            {title}
           </Text>
-        )}
-        <Text style={styles.title} numberOfLines={2}>
-          {title}
-        </Text>
-        <View style={styles.authorContainer}>
-          <Image source={icon.userAvatar} style={styles.avatar} />
-          <Text style={styles.author} numberOfLines={1}>
-            {author}
-          </Text>
-        </View>
-        {collectiblesCount !== undefined ? (
-          <Text style={styles.collectibles}>
-            {collectiblesCount} collectibles
-          </Text>
-        ) : (
-          <View style={{ marginVertical: 10 }}>
-            {price && (
-              <>
-                <Text
-                  style={{
-                    fontFamily: PoppinsFonts.Regular,
-                    color: Colors.BattleshipGray,
-                    marginVertical: 2,
-                  }}
-                  numberOfLines={2}
-                >
-                  Price
-                </Text>
-                <Text style={styles.price} numberOfLines={2}>
-                  {price} ETH
-                </Text>
-              </>
-            )}
-            {vaults !== undefined && (
-              <Text style={styles.vaults}>in {vaults} vaults</Text>
-            )}
+          <View style={styles.authorContainer}>
+            <Image source={icon.userAvatar} style={styles.avatar} />
+            <Text style={styles.author} numberOfLines={1}>
+              {author}
+            </Text>
           </View>
-        )}
-      </View>
-    </TouchableOpacity>
+          {collectiblesCount !== undefined ? (
+            <Text style={styles.collectibles}>
+              {collectiblesCount} collectibles
+            </Text>
+          ) : (
+            <View style={{ marginVertical: 10 }}>
+              {price && (
+                <>
+                  <Text
+                    style={{
+                      fontFamily: PoppinsFonts.Regular,
+                      color: Colors.BattleshipGray,
+                      marginVertical: 2,
+                    }}
+                    numberOfLines={2}
+                  >
+                    Price
+                  </Text>
+                  <Text style={styles.price} numberOfLines={2}>
+                    {price} ETH
+                  </Text>
+                </>
+              )}
+              {vaults !== undefined && (
+                <Text style={styles.vaults}>in {vaults} vaults</Text>
+              )}
+            </View>
+          )}
+        </View>
+      </TouchableOpacity>
+      <DetailsModal visible={modalVisible} onClose={closeModal} />
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    flexDirection: "row",
-    backgroundColor: "#1F1F1F",
+    flexDirection: 'row',
+    backgroundColor: '#1F1F1F',
     borderRadius: 20,
     padding: 15,
     marginBottom: 12,
-    alignItems: "center",
-    justifyContent: "space-between",
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   image: {
     width: 147,
     height: 147,
     borderRadius: 20,
-    alignSelf: "flex-start",
+    alignSelf: 'flex-start',
   },
   content: {
     flex: 1,
     marginLeft: 20,
   },
   time: {
-    color: "#858584",
+    color: '#858584',
     fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
     marginBottom: 2,
@@ -114,8 +125,8 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.Bold,
   },
   authorContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginTop: 5,
   },
   avatar: {
@@ -130,7 +141,7 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.Medium,
   },
   collectibles: {
-    color: "#858584",
+    color: '#858584',
     fontSize: 12,
     marginVertical: 4,
     fontFamily: PoppinsFonts.Regular,

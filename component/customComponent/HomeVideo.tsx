@@ -5,6 +5,10 @@ import { icon } from '../../assets/images/Image';
 import { PoppinsFonts } from '../../assets/fonts';
 import { Colors } from '../../assets/colors/Colors';
 import { ViewStyle } from 'react-native';
+import { GifThemes } from '../helper/Helper';
+import { getGlobalStoreState } from '../../redux/globalStore';
+import { useSelector } from 'react-redux';
+import FastImage from 'react-native-fast-image';
 interface HomeVideoProps {
   children?: React.ReactNode;
   topTitle?: string; // Title for the top button
@@ -20,9 +24,9 @@ const HomeVideo: React.FC<HomeVideoProps> = ({
   onTopPress,
   onBottomPress,
 }) => {
-  const videoRef = useRef<VideoRef>(null);
-  const background = require('../../assets/demo.mp4');
-
+  const { themeUrl } = useSelector((rootState) =>
+    getGlobalStoreState(rootState)
+  );
   // Function to determine dynamic styles
 
   const getContainerStyle = (title: string): ViewStyle => {
@@ -64,14 +68,7 @@ const HomeVideo: React.FC<HomeVideoProps> = ({
 
           <Text style={styles.mainContainerText}>{topTitle}</Text>
         </TouchableOpacity>
-        <Video
-          source={background}
-          ref={videoRef}
-          repeat={true}
-          paused={true}
-          style={styles.video}
-          resizeMode='cover'
-        />
+        <FastImage source={themeUrl} style={styles.video} resizeMode='cover' />
       </View>
 
       {/* Dynamic Child Content */}
@@ -98,20 +95,13 @@ const HomeVideo: React.FC<HomeVideoProps> = ({
           ]}
           onPress={onBottomPress}
         >
-          {topTitle === "Collector's Vault" && (
+          {bottomTitle === "Collector's Vault" && (
             <Image source={icon.play} style={styles.playIcon} />
           )}
 
           <Text style={[styles.mainContainerText]}>{bottomTitle}</Text>
         </TouchableOpacity>
-        <Video
-          source={background}
-          ref={videoRef}
-          repeat={true}
-          paused={true}
-          style={styles.video}
-          resizeMode='cover'
-        />
+        <FastImage source={themeUrl} style={styles.video} resizeMode='cover' />
       </View>
     </View>
   );

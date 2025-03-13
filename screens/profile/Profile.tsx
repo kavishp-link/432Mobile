@@ -15,13 +15,20 @@ import { ScreenWidth, themeImage } from '../../component/helper/Helper';
 import { PoppinsFonts } from '../../assets/fonts';
 import { Colors } from '../../assets/colors/Colors';
 import BottomSheet from '../../component/customComponent/BottomSheet';
-import { ThemeItem } from '../../assets/types/Types';
+import { RootStackParamList, ThemeItem } from '../../assets/types/Types';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getGlobalStoreState,
+  globalStoreActions,
+} from '../../redux/globalStore';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
 
 const cardSize = ScreenWidth / 3 - 40;
 const cardSizeHeight = ScreenWidth / 3 - 25;
 export const Profile = () => {
-  const [selectedImage, setSelectedImage] = useState<any>(null);
   const refRBSheet = useRef<any>();
+  const dispatch = useDispatch<any>();
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const settingsOptions = [
     {
       title: 'Personal Details',
@@ -38,6 +45,9 @@ export const Profile = () => {
       themeIcon: icon.themeIcon,
     },
   ];
+  const handleThemeSelect = (url: string) => {
+    dispatch(globalStoreActions.setTheme(url));
+  };
 
   const GridItem: React.FC<{
     item: ThemeItem;
@@ -46,7 +56,10 @@ export const Profile = () => {
     return (
       <TouchableOpacity
         style={[styles.card, { width: cardSize, height: cardSizeHeight }]}
-        onPress={() => onSelect(item.icon)}
+        onPress={() => {
+          refRBSheet.current.close();
+          navigation.navigate('ThemePreview', { url: item.url });
+        }}
       >
         <Image source={icon.themepen} style={styles.themePen} />
         <Image
@@ -125,7 +138,7 @@ export const Profile = () => {
           <FlatList
             data={themeImage}
             renderItem={({ item }) => (
-              <GridItem item={item} onSelect={setSelectedImage} />
+              <GridItem item={item} onSelect={handleThemeSelect} />
             )}
             keyExtractor={(item) => item.id}
             numColumns={3}
