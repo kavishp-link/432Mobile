@@ -11,7 +11,7 @@ const BottomSheet = (props: any) => {
       draggable
       customStyles={{
         wrapper: {
-          backgroundColor: 'transparent',
+          backgroundColor: '#00000080',
         },
         draggableIcon: {
           backgroundColor: Colors.white,
@@ -25,7 +25,7 @@ const BottomSheet = (props: any) => {
         },
       }}
       customModalProps={{
-        animationType: 'slide',
+        animationType: 'none',
         statusBarTranslucent: true,
       }}
       customAvoidingViewProps={{

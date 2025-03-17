@@ -11,6 +11,8 @@ import { icon } from '../../assets/images/Image';
 import { Colors } from '../../assets/colors/Colors';
 import { PoppinsFonts } from '../../assets/fonts';
 import SwipeButton from 'rn-swipe-button';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../assets/types/Types';
 interface DetailsModalProps {
   visible: boolean;
   onClose?: () => void;
@@ -21,6 +23,7 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
   onClose,
 }) => {
   const [finishSwipeAnimDuration, setFinishSwipeAnimDuration] = useState(400);
+  const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   let forceResetLastButton: any;
   let forceCompleteCallback: any;
 
@@ -54,41 +57,45 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
           <View style={styles.detailsView}>
             <Text style={styles.text1}>22:22 mins</Text>
             <Text style={styles.text2}>Distant Galaxy</Text>
+            <SwipeButton
+              disableResetOnTap
+              forceReset={(reset: any) => {
+                forceResetLastButton = reset;
+              }}
+              finishRemainingSwipeAnimationDuration={finishSwipeAnimDuration}
+              forceCompleteSwipe={(forceComplete: any) => {
+                forceCompleteCallback = forceComplete;
+              }}
+              railBackgroundColor='#3B3B3B'
+              railStyles={{
+                backgroundColor: '#00AF6D',
+              }}
+              railBorderColor='transparent'
+              railFillBorderColor='transparent'
+              thumbIconBackgroundColor={Colors.white}
+              thumbIconBorderColor='transparent'
+              title='Collect'
+              titleColor={Colors.white}
+              titleStyles={{
+                fontSize: 16,
+                fontFamily: PoppinsFonts.SemiBold,
+              }}
+              thumbIconComponent={() => (
+                <Image
+                  source={icon.blackswipe}
+                  style={{ width: 18, height: 18, resizeMode: 'contain' }}
+                />
+              )}
+            />
+            <TouchableOpacity
+              style={styles.moreDetails}
+              onPress={() => {
+                navigation.navigate('Details', { data: {} });
+              }}
+            >
+              <Text style={styles.moreDetailsText}>more details</Text>
+            </TouchableOpacity>
           </View>
-          <SwipeButton
-            disableResetOnTap
-            containerStyles={{ marginHorizontal: 15 }}
-            forceReset={(reset: any) => {
-              forceResetLastButton = reset;
-            }}
-            finishRemainingSwipeAnimationDuration={finishSwipeAnimDuration}
-            forceCompleteSwipe={(forceComplete: any) => {
-              forceCompleteCallback = forceComplete;
-            }}
-            railBackgroundColor='#3B3B3B'
-            railStyles={{
-              backgroundColor: '#3B3B3B',
-            }}
-            railBorderColor='transparent'
-            railFillBorderColor='transparent'
-            thumbIconBackgroundColor={Colors.white}
-            thumbIconBorderColor='transparent'
-            title='Collect'
-            titleColor={Colors.white}
-            titleStyles={{
-              fontSize: 16,
-              fontFamily: PoppinsFonts.SemiBold,
-            }}
-            thumbIconComponent={() => (
-              <Image
-                source={icon.blackswipe}
-                style={{ width: 18, height: 18, resizeMode: 'contain' }}
-              />
-            )}
-          />
-          <TouchableOpacity style={styles.moreDetails}>
-            <Text style={styles.moreDetailsText}>more details</Text>
-          </TouchableOpacity>
         </View>
       </TouchableOpacity>
     </Modal>
@@ -100,7 +107,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
   },
   detailsContainer: {
     width: 315,
@@ -120,18 +127,20 @@ const styles = StyleSheet.create({
     color: Colors.BattleshipGray,
     fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
+    marginLeft: 5,
   },
   text2: {
-    paddingTop: 10,
+    marginLeft: 5,
+
     color: Colors.white,
     fontSize: 22,
+    marginVertical: 10,
     fontFamily: PoppinsFonts.SemiBold,
   },
   moreDetails: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 8,
-    paddingBottom: 15,
   },
   moreDetailsText: {
     textDecorationLine: 'underline',

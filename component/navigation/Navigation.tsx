@@ -17,6 +17,7 @@ import {
   Plaza,
   Genres,
   MusicWorld,
+  Details,
 } from '../../screens';
 import ThemePreview from '../customComponent/ThemePreview';
 
@@ -104,6 +105,11 @@ export const Navigation = () => {
         <Stack.Screen
           name='ThemePreview'
           component={ThemePreview}
+          options={{ headerShown: false, presentation: 'modal' }}
+        />
+        <Stack.Screen
+          name='Details'
+          component={Details}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

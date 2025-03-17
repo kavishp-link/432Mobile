@@ -13,6 +13,7 @@ import { Plaza } from './plaza/Plaza';
 import { FrequencyBaazaar } from './frequencyBaazaar/FrequencyBaazaar';
 import { Genres } from './genres/Genres';
 import { MusicWorld } from './musicWorld/MusicWorld';
+import { Details } from './details/Details';
 export {
   CollectorsVault,
   Login,
@@ -29,4 +30,5 @@ export {
   FrequencyBaazaar,
   Genres,
   MusicWorld,
+  Details,
 };

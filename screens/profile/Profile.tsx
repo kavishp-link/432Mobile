@@ -67,9 +67,9 @@ export const Profile = () => {
             typeof item.icon === 'string' ? { uri: item.icon } : item.icon
           }
           style={{
-            width: cardSize * 1.15,
+            borderRadius: 10,
+            width: cardSize,
             height: cardSize * 1.15,
-            resizeMode: 'contain',
           }}
         />
       </TouchableOpacity>
@@ -134,17 +134,17 @@ export const Profile = () => {
           <Text style={styles.text1}>Theme</Text>
           <Text style={styles.text2}>How are you feeling?</Text>
         </View>
-        <View style={styles.cardView}>
-          <FlatList
-            data={themeImage}
-            renderItem={({ item }) => (
-              <GridItem item={item} onSelect={handleThemeSelect} />
-            )}
-            keyExtractor={(item) => item.id}
-            numColumns={3}
-            contentContainerStyle={styles.container}
-          />
-        </View>
+
+        <FlatList
+          data={themeImage}
+          scrollEnabled={false}
+          renderItem={({ item }) => (
+            <GridItem item={item} onSelect={handleThemeSelect} />
+          )}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+          contentContainerStyle={styles.bottomSheetContainerStyle}
+        />
       </BottomSheet>
     </Container>
   );
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.SemiBold,
   },
   card: {
-    margin: 6,
+    margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 8,
@@ -224,12 +224,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // alignItems: 'center',
     width: ScreenWidth,
-    paddingHorizontal: 25,
+    // paddingHorizontal: 25,
   },
   themePen: {
     position: 'absolute',
     zIndex: 2,
     width: 26,
     height: 27,
+  },
+  bottomSheetContainerStyle: {
+    flex: 1,
+
+    alignItems: 'center',
   },
 });

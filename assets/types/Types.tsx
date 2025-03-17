@@ -15,6 +15,7 @@ export type RootStackParamList = {
   Genres: undefined;
   MusicWorld: undefined;
   ThemePreview: { url: string };
+  Details: { data: any };
 };
 export type UserDetails = {
   profileType: string;
