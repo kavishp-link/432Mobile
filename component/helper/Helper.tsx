@@ -12,17 +12,17 @@ export const inputFields: {
   options?: string[]; // For dropdown fields
 }[] = [
   {
-    key: 'Location',
+    key: 'location',
     placeholder: 'Location',
     keyboardType: 'default',
   },
   {
-    key: 'portfolio',
+    key: 'portfolioLink',
     placeholder: 'Portfolio (Link)',
     keyboardType: 'url',
   },
   {
-    key: 'bio',
+    key: 'musicInOneWord',
     placeholder: 'in one word what does music mean to you?',
     keyboardType: 'default',
   },
@@ -35,22 +35,22 @@ export const socialFields: {
   options?: string[]; // For dropdown fields
 }[] = [
   {
-    key: 'Facebook',
+    key: 'facebookLink',
     placeholder: 'Facebook',
     keyboardType: 'default',
   },
   {
-    key: 'Instagram',
+    key: 'instagramLink',
     placeholder: 'Instagram',
     keyboardType: 'url',
   },
   {
-    key: 'Twitter',
+    key: 'twitterLink',
     placeholder: 'Twitter',
     keyboardType: 'default',
   },
   {
-    key: 'linkedin',
+    key: 'linkedinLin',
     placeholder: 'linkedin',
     keyboardType: 'default',
   },
@@ -321,4 +321,11 @@ export const musicMockData = [
 
     image: icon.city6,
   },
+];
+export const sections = [
+  'Performance History',
+  'Muse of this Creation',
+  'Listing Activity',
+  'About Shubhi Shukla',
+  'Details',
 ];

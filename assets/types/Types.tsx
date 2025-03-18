@@ -22,6 +22,7 @@ export type UserDetails = {
   location: string;
   portfolio: string;
   bio: string;
+  socialFields: {};
 };
 export type ThemeItem = {
   id: string;

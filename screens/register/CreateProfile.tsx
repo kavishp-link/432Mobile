@@ -1,6 +1,6 @@
 import {
+  Alert,
   Image,
-  KeyboardTypeOptions,
   StyleSheet,
   Text,
   TextInput,
@@ -18,45 +18,112 @@ import {
 } from '../../component/helper/Helper';
 import { Colors } from '../../assets/colors/Colors';
 import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
-import {
-  RootStackParamList,
-  SocialLink,
-  UserDetails,
-} from '../../assets/types/Types';
+import { RootStackParamList } from '../../assets/types/Types';
 import { Dropdown } from 'react-native-element-dropdown';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import BottomSheet from '../../component/customComponent/BottomSheet';
+import { Ionicons } from '@expo/vector-icons';
 
 export const CreateProfile = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [userDetails, setUserDetails] = useState<UserDetails | any>({
+  const refRBSheet = useRef<any>();
+  const [userDetails, setUserDetails] = useState<any>({
     profileType: '',
     location: '',
-    portfolio: '',
-    bio: '',
+    portfolioLink: '',
+    musicInOneWord: '',
+    facebookLink: '',
+    instagramLink: '',
+    twitterLink: '',
+    linkedinLink: '',
   });
-  const [scoialLink, setScoialLink] = useState<UserDetails | any>({
-    facebook: '',
-    instagram: '',
-    twitter: '',
-    linkedin: '',
-  });
-  const handleChange = <T extends keyof UserDetails>(key: T, value: string) => {
+
+  const handleChange = (key: any, value: string) => {
+    console.log('key', key);
+
     setUserDetails((prev: any) => ({
       ...prev,
       [key]: value,
     }));
   };
-  const handleChangeSocialLink = <T extends keyof SocialLink>(
-    key: T,
-    value: string
-  ) => {
-    setScoialLink((prev: any) => ({
+  const handleChangeSocialLink = (key: any, value: string) => {
+    setUserDetails((prev: any) => ({
       ...prev,
       [key]: value,
     }));
   };
-  const refRBSheet = useRef<any>();
+  const handleSave = () => {
+    const updatedDetails = { ...userDetails };
+    let invalidFields: string[] = [];
+
+    // Friendly field labels for alert
+    const fieldLabels: { [key: string]: string } = {
+      facebookLink: 'Facebook',
+      instagramLink: 'Instagram',
+      twitterLink: 'Twitter',
+      linkedinLink: 'LinkedIn',
+    };
+
+    // Updated regex patterns
+    const urlPatterns: { [key: string]: RegExp } = {
+      facebookLink:
+        /^(https?:\/\/)?(www\.)?facebook\.com\/(profile\.php\?id=\d+|[a-zA-Z0-9_.-]+)(\/.*)?(\?.*)?$/,
+      instagramLink:
+        /^(https?:\/\/)?(www\.)?instagram\.com\/[a-zA-Z0-9_.-]+(\/.*)?(\?.*)?$/,
+      twitterLink:
+        /^(https?:\/\/)?(www\.)?twitter\.com\/[a-zA-Z0-9_.-]+(\/.*)?(\?.*)?$/,
+      linkedinLink:
+        /^(https?:\/\/)?(www\.)?linkedin\.com\/(in|company)\/[a-zA-Z0-9_-]+(\/.*)?(\?.*)?$/,
+    };
+
+    for (const { key } of socialFields) {
+      const value = userDetails[key]?.trim();
+
+      if (value) {
+        if (urlPatterns[key] && !urlPatterns[key].test(value)) {
+          invalidFields.push(fieldLabels[key]); // Store readable field names
+          updatedDetails[key] = ''; // Clear invalid field
+        }
+      } else {
+        updatedDetails[key] = ''; // Set empty string if field is empty
+      }
+    }
+
+    if (invalidFields.length > 0) {
+      Alert.alert(
+        'Invalid URL',
+        `Please enter a valid ${invalidFields.join(', ')} URL${
+          invalidFields.length > 1 ? 's' : ''
+        }`
+      );
+      setUserDetails(updatedDetails);
+      return;
+    }
+
+    // Save the valid data
+    setUserDetails(updatedDetails);
+    refRBSheet.current.close();
+  };
+  // const renderItem = (item: { label: string; value: string }) => {
+  //   const isSelected = userDetails?.profileType === item.value; // Check if item is selected
+
+  //   return (
+  //     <View style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+  //       <Text
+  //         style={{
+  //           flex: 1,
+  //           color: Colors.black,
+  //           fontFamily: PoppinsFonts.Regular,
+  //         }}
+  //       >
+  //         {item.label}
+  //       </Text>
+  //       {isSelected && (
+  //         <Ionicons name='checkmark' size={20} color={Colors.BattleshipGray} />
+  //       )}
+  //     </View>
+  //   );
+  // };
   return (
     <LoginAndRegisterCustom>
       <View style={styles.mainContainer}>
@@ -78,7 +145,9 @@ export const CreateProfile = () => {
               value={userDetails?.profileType} // Ensure this updates
               labelField='label'
               valueField='value'
+              activeColor='transparent'
               placeholder='Profile Type'
+              // renderItem={renderItem}
             />
           </View>
           {inputFields?.map(
@@ -141,7 +210,7 @@ export const CreateProfile = () => {
                   fontFamily: PoppinsFonts.Medium,
                 }}
               >
-                {key}
+                {placeholder}
               </Text>
               <TextInput
                 style={[
@@ -152,12 +221,12 @@ export const CreateProfile = () => {
                     width: '100%',
 
                     borderColor: Colors.BattleshipGray,
-                    paddingLeft: 15, // Padding for placeholder
+                    paddingHorizontal: 15, // Padding for placeholder
                   },
                 ]}
                 keyboardType={keyboardType}
-                placeholder={`Enter Your ${key} Url`}
-                value={scoialLink[key]}
+                placeholder={`Enter Your ${placeholder} Url`}
+                value={userDetails[key]}
                 onChangeText={(text) => handleChangeSocialLink(key, text)}
               />
             </View>
@@ -173,7 +242,7 @@ export const CreateProfile = () => {
                 alignSelf: 'center',
               },
             ]}
-            onPress={() => {}}
+            onPress={handleSave}
           >
             <Text style={[styles.SubmitText, { color: Colors.white }]}>
               Save
@@ -288,6 +357,7 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     color: '#BDBDBD',
+    backgroundColor: 'transparent',
   },
   socialContainer: {
     paddingTop: 20,

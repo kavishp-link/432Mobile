@@ -15,6 +15,7 @@ interface GalleryCardProps {
   time?: string;
   onPress?: () => void;
   isDisable?: boolean;
+  prevPage?: string;
 }
 
 export const GalleriaCard: React.FC<GalleryCardProps> = ({
@@ -27,6 +28,7 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
   time,
   onPress,
   isDisable,
+  prevPage,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const onCardPress = () => {
@@ -40,7 +42,7 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
       <TouchableOpacity
         style={styles.card}
         disabled={isDisable}
-        onPress={onCardPress}
+        onPress={prevPage === 'Galleria' ? onPress : onCardPress}
       >
         <Image source={imageUrl} style={styles.image} />
         <View style={styles.content}>

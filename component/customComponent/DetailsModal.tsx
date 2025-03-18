@@ -13,6 +13,7 @@ import { PoppinsFonts } from '../../assets/fonts';
 import SwipeButton from 'rn-swipe-button';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../assets/types/Types';
+import { Ionicons } from '@expo/vector-icons';
 interface DetailsModalProps {
   visible: boolean;
   onClose?: () => void;
@@ -26,14 +27,11 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
 }) => {
   const [finishSwipeAnimDuration, setFinishSwipeAnimDuration] = useState(400);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  let forceResetLastButton: any;
-  let forceCompleteCallback: any;
-
-  const forceCompleteButtonCallback = useCallback(() => {
-    setFinishSwipeAnimDuration(0);
-    if (forceCompleteCallback) {
-      forceCompleteCallback();
-    }
+  let forceCompleteCallback: any = null;
+  let forceResetLastButton: any = null;
+  const [isSwiped, setIsSwiped] = useState(false);
+  const handleSwipeSuccess = useCallback(() => {
+    setIsSwiped(true); // ✅ Change icon after swipe is complete
   }, []);
 
   const forceResetButtonCallback = useCallback(() => {
@@ -41,6 +39,7 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
       forceResetLastButton();
     }
     setTimeout(() => setFinishSwipeAnimDuration(400), 1000);
+    setIsSwiped(false); // ✅ Reset icon when resetting
   }, []);
 
   return (
@@ -64,8 +63,11 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
               forceReset={(reset: any) => {
                 forceResetLastButton = reset;
               }}
+              onSwipeSuccess={handleSwipeSuccess} // ✅ Set `isSwiped` to true when swipe completes
+              onSwipeFail={forceResetButtonCallback}
               finishRemainingSwipeAnimationDuration={finishSwipeAnimDuration}
               forceCompleteSwipe={(forceComplete: any) => {
+                //
                 forceCompleteCallback = forceComplete;
               }}
               railBackgroundColor='#3B3B3B'
@@ -79,15 +81,20 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
               title='Collect'
               titleColor={Colors.white}
               titleStyles={{
+                paddingLeft: 15,
                 fontSize: 16,
                 fontFamily: PoppinsFonts.SemiBold,
               }}
-              thumbIconComponent={() => (
-                <Image
-                  source={icon.blackswipe}
-                  style={{ width: 18, height: 18, resizeMode: 'contain' }}
-                />
-              )}
+              thumbIconComponent={() => {
+                return isSwiped ? (
+                  <Ionicons name='checkmark' size={22} color={Colors.black} />
+                ) : (
+                  <Image
+                    source={icon.blackswipe}
+                    style={{ width: 18, height: 18, resizeMode: 'contain' }}
+                  />
+                );
+              }}
             />
             <TouchableOpacity
               style={styles.moreDetails}
@@ -95,7 +102,7 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
                 setModalVisible(false);
                 navigation.navigate('Details', {
                   data: {
-                    price: '1.6 ETH',
+                    price: '1.63 ETH',
                     time: '22:22',
                     vaults: '888',
                     text: 'Distant Galaxy',
