@@ -7,6 +7,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  useWindowDimensions,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { HeaderProfile } from "../../../component/customComponent/HeaderProfile";
@@ -21,7 +22,7 @@ import { graphMockData } from "../../../component/helper/Helper";
 import { LineChart, PieChart } from "react-native-chart-kit";
 
 export const WorkspaceGraph = () => {
-  const screenWidth = Dimensions.get("window").width;
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [data, setData] = useState<any>(graphMockData);
 
@@ -42,21 +43,12 @@ export const WorkspaceGraph = () => {
           scoreLabel="Artist"
         />
       </View>
-      <Text
-        style={styles.sectionTitle}
-        allowFontScaling={false}
-        numberOfLines={2}
-      >
+      <Text style={styles.sectionTitle} numberOfLines={2}>
         Frequency Bazaar
       </Text>
 
       <View style={styles.divider} />
-      <ScrollView
-        style={{
-          alignSelf: "center",
-          marginHorizontal: 10,
-        }}
-      >
+      <ScrollView style={{ alignSelf: "center", marginHorizontal: 10 }}>
         <Text style={[styles.subHeader, { fontSize: 16 }]} numberOfLines={1}>
           Portfolio Performance
         </Text>
@@ -84,7 +76,6 @@ export const WorkspaceGraph = () => {
             paddingHorizontal: 10,
           }}
         >
-          {/* Left Section */}
           <View style={[styles.flexBox, {}]}>
             <Text
               style={[styles.subHeader, { fontSize: 16, maxWidth: 100 }]}
@@ -113,34 +104,30 @@ export const WorkspaceGraph = () => {
             </Text>
           </View>
         </View>
-
         <View style={styles.rowBetween}>
-          <View style={{ alignSelf: "center" }}>
-            <View
-              style={[styles.audienceCard, { maxWidth: screenWidth * 0.35 }]}
-            >
-              <Text style={styles.subHeader} numberOfLines={2}>
-                Audience Demographic
-              </Text>
-              <Image source={icon.audienceLogo} style={styles.audienceIcon} />
-            </View>
+          <View style={[styles.audienceCard, { maxWidth: screenWidth * 0.35 }]}>
+            <Text style={styles.subHeader} numberOfLines={2}>
+              Audience Demographic
+            </Text>
+            <Image source={icon.audienceLogo} style={styles.audienceIcon} />
           </View>
 
-          <View style={{ minWidth: screenWidth * 0.54, alignItems: "center" }}>
+          <View style={{ maxWidth: screenWidth * 0.6, alignItems: "center" }}>
             <PieChart
               data={graphMockData.funnelData}
-              width={screenWidth * 0.55}
-              height={200}
+              width={screenWidth * 0.75}
+              height={screenWidth * 0.37}
               chartConfig={{
                 backgroundColor: "#121212",
                 backgroundGradientFrom: "#1E1E1E",
                 backgroundGradientTo: "#1E1E1E",
-                color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
+                color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
               }}
               accessor={"population"}
               backgroundColor={"transparent"}
-              paddingLeft={"15"}
-              center={[10, 0]}
+              paddingLeft={(screenWidth * 0.01 - 15).toFixed(2)}
+              center={[screenWidth * 0.085, screenHeight * 0.01]}
             />
           </View>
         </View>
@@ -154,9 +141,6 @@ export const WorkspaceGraph = () => {
 };
 
 const lineChartConfig = {
-  // backgroundColor: "#121212",
-  // backgroundGradientFrom: "#1E1E1E",
-  // backgroundGradientTo: "#1E1E1E",
   color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
   strokeWidth: 2,
   propsForDots: {
@@ -187,8 +171,6 @@ const styles = StyleSheet.create({
   },
   rowBetween: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    width: "92%",
     alignSelf: "center",
   },
   chartStyle: {
@@ -197,7 +179,7 @@ const styles = StyleSheet.create({
   },
   audienceCard: {
     backgroundColor: "#1E1E1E",
-    padding: 20,
+    padding: 15,
     borderRadius: 10,
     alignItems: "center",
   },

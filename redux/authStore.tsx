@@ -3,6 +3,7 @@ import {
   createEntityAdapter,
   createSelector,
   createSlice,
+  PayloadAction,
 } from "@reduxjs/toolkit";
 export const AUTH_STORE_KEY = "auth";
 export const authStoreAdapter = createEntityAdapter();
@@ -25,6 +26,7 @@ interface authStoreState {
   userName: string;
   isLogin: boolean;
   deviceToken: string;
+  userDetails: {};
 }
 
 export const initialStoreState = authStoreAdapter.getInitialState({
@@ -33,6 +35,7 @@ export const initialStoreState = authStoreAdapter.getInitialState({
   userName: "",
   isLogin: false,
   deviceToken: "",
+  userDetails: {},
 } as authStoreState);
 
 export const authSlice = createSlice({
@@ -41,6 +44,9 @@ export const authSlice = createSlice({
   reducers: {
     add: authStoreAdapter.addOne,
     remove: authStoreAdapter.removeOne,
+    setUserDetails: (state, action) => {
+      state.userDetails = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
