@@ -16,11 +16,13 @@ import { RootStackParamList } from '../../assets/types/Types';
 interface DetailsModalProps {
   visible: boolean;
   onClose?: () => void;
+  setModalVisible: any;
 }
 
 export const DetailsModal: React.FC<DetailsModalProps> = ({
   visible,
   onClose,
+  setModalVisible,
 }) => {
   const [finishSwipeAnimDuration, setFinishSwipeAnimDuration] = useState(400);
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
@@ -90,7 +92,16 @@ export const DetailsModal: React.FC<DetailsModalProps> = ({
             <TouchableOpacity
               style={styles.moreDetails}
               onPress={() => {
-                navigation.navigate('Details', { data: {} });
+                setModalVisible(false);
+                navigation.navigate('Details', {
+                  data: {
+                    price: '1.6 ETH',
+                    time: '22:22',
+                    vaults: '888',
+                    text: 'Distant Galaxy',
+                    image: icon.spaceImageShip,
+                  },
+                });
               }}
             >
               <Text style={styles.moreDetailsText}>more details</Text>

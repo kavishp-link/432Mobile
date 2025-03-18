@@ -6,37 +6,57 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useState } from "react";
-import { PoppinsFonts } from "../../assets/fonts";
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { PoppinsFonts } from '../../assets/fonts';
 import {
   inputFields,
   ProfileType,
   ScreenWidth,
+  socialFields,
   SocialLinkIcon,
-} from "../../component/helper/Helper";
-import { Colors } from "../../assets/colors/Colors";
-import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
-import { RootStackParamList, UserDetails } from "../../assets/types/Types";
-import { Dropdown } from "react-native-element-dropdown";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
+} from '../../component/helper/Helper';
+import { Colors } from '../../assets/colors/Colors';
+import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
+import {
+  RootStackParamList,
+  SocialLink,
+  UserDetails,
+} from '../../assets/types/Types';
+import { Dropdown } from 'react-native-element-dropdown';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import BottomSheet from '../../component/customComponent/BottomSheet';
 
 export const CreateProfile = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const [userDetails, setUserDetails] = useState<UserDetails | any>({
-    profileType: "",
-    location: "",
-    portfolio: "",
-    bio: "",
+    profileType: '',
+    location: '',
+    portfolio: '',
+    bio: '',
   });
-
+  const [scoialLink, setScoialLink] = useState<UserDetails | any>({
+    facebook: '',
+    instagram: '',
+    twitter: '',
+    linkedin: '',
+  });
   const handleChange = <T extends keyof UserDetails>(key: T, value: string) => {
     setUserDetails((prev: any) => ({
       ...prev,
       [key]: value,
     }));
   };
-
+  const handleChangeSocialLink = <T extends keyof SocialLink>(
+    key: T,
+    value: string
+  ) => {
+    setScoialLink((prev: any) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+  const refRBSheet = useRef<any>();
   return (
     <LoginAndRegisterCustom>
       <View style={styles.mainContainer}>
@@ -52,13 +72,13 @@ export const CreateProfile = () => {
               containerStyle={styles.containerStyle}
               itemTextStyle={styles.itemTextStyle}
               placeholderStyle={styles.placeholderStyle}
-              onChange={(item) => handleChange("profileType", item.label)}
+              onChange={(item) => handleChange('profileType', item.label)}
               data={ProfileType}
               search={false}
               value={userDetails?.profileType} // Ensure this updates
-              labelField="label"
-              valueField="value"
-              placeholder="Profile Type"
+              labelField='label'
+              valueField='value'
+              placeholder='Profile Type'
             />
           </View>
           {inputFields?.map(
@@ -81,7 +101,10 @@ export const CreateProfile = () => {
           </View>
           <View style={styles.socialIconView}>
             {SocialLinkIcon.map((item, index) => (
-              <TouchableOpacity key={index}>
+              <TouchableOpacity
+                key={index}
+                onPress={() => refRBSheet.current.open()}
+              >
                 <Image
                   source={item.icon}
                   style={[
@@ -99,6 +122,65 @@ export const CreateProfile = () => {
           </TouchableOpacity>
         </View>
       </View>
+      <BottomSheet
+        refRBSheet={refRBSheet}
+        bgColor={Colors.white}
+        draggableColor={Colors.black}
+        height={450}
+      >
+        <View style={styles.modalContainer}>
+          {socialFields?.map(({ key, placeholder, keyboardType }) => (
+            <View
+              key={key}
+              style={[styles.inputContainer, { width: '100%', height: 65 }]}
+            >
+              <Text
+                style={{
+                  marginBottom: 5,
+                  marginLeft: 10,
+                  fontFamily: PoppinsFonts.Medium,
+                }}
+              >
+                {key}
+              </Text>
+              <TextInput
+                style={[
+                  styles.input,
+                  {
+                    borderWidth: 0.5,
+                    borderRadius: 40,
+                    width: '100%',
+
+                    borderColor: Colors.BattleshipGray,
+                    paddingLeft: 15, // Padding for placeholder
+                  },
+                ]}
+                keyboardType={keyboardType}
+                placeholder={`Enter Your ${key} Url`}
+                value={scoialLink[key]}
+                onChangeText={(text) => handleChangeSocialLink(key, text)}
+              />
+            </View>
+          ))}
+
+          <TouchableOpacity
+            style={[
+              styles.SubmitButton,
+              {
+                width: '95%',
+                backgroundColor: Colors.black,
+                marginTop: 20,
+                alignSelf: 'center',
+              },
+            ]}
+            onPress={() => {}}
+          >
+            <Text style={[styles.SubmitText, { color: Colors.white }]}>
+              Save
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </BottomSheet>
     </LoginAndRegisterCustom>
   );
 };
@@ -108,8 +190,8 @@ const styles = StyleSheet.create({
     height: 500,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 40,
   },
   firstHeading: {
@@ -121,7 +203,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   inputContainer: {
-    position: "relative",
+    position: 'relative',
     height: 46,
     backgroundColor: Colors.white,
 
@@ -129,16 +211,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderContainer: {
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "center",
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
     left: 20,
   },
   placeholderText: {
-    color: "#BDBDBD",
+    color: '#BDBDBD',
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 8,
@@ -150,7 +232,7 @@ const styles = StyleSheet.create({
 
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   inputIconEmail: {
     height: 15,
@@ -169,8 +251,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 10,
     borderRadius: 23,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   SubmitText: {
     fontSize: 16,
@@ -184,13 +266,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   itemContainerStyle: {},
   containerStyle: {
@@ -199,20 +281,20 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     fontFamily: PoppinsFonts.Regular,
     fontSize: 14,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   selectedTextStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   socialContainer: {
     paddingTop: 20,
     paddingRight: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   socialTextView: {},
   socialText: {
@@ -221,12 +303,64 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   socialIconView: {
-    flexDirection: "row",
+    flexDirection: 'row',
 
-    width: "auto",
+    width: 'auto',
   },
   socialIcon: {
     width: 32,
     height: 32,
   },
+  modalContainer: {
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    paddingHorizontal: 20,
+    backgroundColor: Colors.white,
+  },
+  modalContent: {
+    width: ScreenWidth - 80,
+    padding: 20,
+    backgroundColor: Colors.white,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontFamily: PoppinsFonts.Medium,
+    fontSize: 18,
+    marginBottom: 10,
+  },
+  input1: {
+    width: '100%',
+    height: 40,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginBottom: 15,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  cancelButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    backgroundColor: 'red',
+    borderRadius: 5,
+    marginRight: 10,
+  },
+  saveButton: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 10,
+    backgroundColor: 'green',
+    borderRadius: 5,
+  },
+  buttonText: {
+    color: Colors.white,
+    fontFamily: PoppinsFonts.Medium,
+  },
+  linkText: {},
 });

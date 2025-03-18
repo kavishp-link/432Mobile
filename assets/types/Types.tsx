@@ -28,3 +28,9 @@ export type ThemeItem = {
   icon: any; // Can be a require() or URI string
   url: string;
 };
+export type SocialLink = {
+  facebook: string;
+  instagram: string;
+  twitter: string;
+  linkedin: string;
+};

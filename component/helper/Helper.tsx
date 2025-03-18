@@ -27,7 +27,34 @@ export const inputFields: {
     keyboardType: 'default',
   },
 ];
-
+export const socialFields: {
+  key: any;
+  placeholder: string;
+  keyboardType?: KeyboardTypeOptions;
+  type?: 'text';
+  options?: string[]; // For dropdown fields
+}[] = [
+  {
+    key: 'Facebook',
+    placeholder: 'Facebook',
+    keyboardType: 'default',
+  },
+  {
+    key: 'Instagram',
+    placeholder: 'Instagram',
+    keyboardType: 'url',
+  },
+  {
+    key: 'Twitter',
+    placeholder: 'Twitter',
+    keyboardType: 'default',
+  },
+  {
+    key: 'linkedin',
+    placeholder: 'linkedin',
+    keyboardType: 'default',
+  },
+];
 export const ProfileType = [
   { label: 'Connoisseur', value: 'Connoisseur' },
   { label: 'Artist', value: 'Artist' },

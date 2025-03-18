@@ -88,7 +88,11 @@ export const GalleriaCard: React.FC<GalleryCardProps> = ({
           )}
         </View>
       </TouchableOpacity>
-      <DetailsModal visible={modalVisible} onClose={closeModal} />
+      <DetailsModal
+        visible={modalVisible}
+        onClose={closeModal}
+        setModalVisible={setModalVisible}
+      />
     </>
   );
 };

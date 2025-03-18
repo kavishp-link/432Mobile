@@ -14,12 +14,14 @@ const BottomSheet = (props: any) => {
           backgroundColor: '#00000080',
         },
         draggableIcon: {
-          backgroundColor: Colors.white,
+          backgroundColor: props.draggableColor
+            ? props.draggableColor
+            : Colors.white,
           width: 55,
           marginTop: 15,
         },
         container: {
-          backgroundColor: '#1F1F1F',
+          backgroundColor: props.bgColor ? props.bgColor : '#1F1F1F',
           borderTopLeftRadius: 40,
           borderTopRightRadius: 40,
         },
@@ -31,7 +33,7 @@ const BottomSheet = (props: any) => {
       customAvoidingViewProps={{
         enabled: false,
       }}
-      height={550}
+      height={props.height ? props.height : 550}
     >
       {props.children}
     </RBSheet>

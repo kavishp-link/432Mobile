@@ -152,7 +152,7 @@ export const Profile = () => {
 
 const styles = StyleSheet.create({
   mainHeader: {
-    paddingVertical: 20,
+    paddingVertical: 15,
   },
   profileDetails: {
     flex: 1,
