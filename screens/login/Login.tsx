@@ -73,20 +73,35 @@ export const Login = () => {
           loginCreditional.email,
           loginCreditional.password
         );
+        console.log("resLogin----->>", resLogin);
+
         if (resLogin.status) {
+          const filteredUser = removeKeys(resLogin.data.user, [
+            "__v",
+            "password",
+          ]);
+          const filteredUserProfile = resLogin.data.userProfile
+            ? removeKeys(resLogin.data.userProfile, ["__v", "_id"])
+            : null;
+
           const filteredData = {
-            user: removeKeys(resLogin.data.user, ["__v", "password"]),
-            userProfile: removeKeys(resLogin.data.userProfile, ["__v", "_id"]),
+            user: filteredUser,
+            ...(filteredUserProfile && { userProfile: filteredUserProfile }),
+            ...{ isLoggedIn: true },
           };
+
+          console.log("filteredData----->>", filteredData);
+
           await save("currentUser", filteredData);
-          dispatch(
-            authStoreActions.setUserDetails({
-              ...filteredData,
-            })
-          );
+          dispatch(authStoreActions.setUserDetails(filteredData));
+
           console.log("Logged in successfully!");
           setButtonLoader(false);
-          navigation.navigate("CreateProfile");
+          if (resLogin?.data?.userProfile?.profileType) {
+            navigation.navigate("Home");
+          } else {
+            navigation.navigate("CreateProfile");
+          }
         } else {
           let invalidCred = { email: "", password: resLogin.message };
           setError(invalidCred);

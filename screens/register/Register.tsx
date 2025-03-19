@@ -219,8 +219,6 @@ export const Register = () => {
                     />
                   )}
                 </View>
-
-                {/* Show error message if validation fails */}
                 {error[key] ? (
                   <Text style={styles.errorText}>{error[key]}</Text>
                 ) : null}

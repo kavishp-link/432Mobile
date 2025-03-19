@@ -6,29 +6,55 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useRef } from 'react';
-import { Colors } from '../../assets/colors/Colors';
-import { StatusBar } from 'expo-status-bar';
-import { icon } from '../../assets/images/Image';
-import { ScreenHeight, ScreenWidth } from '../../component/helper/Helper';
-import { PoppinsFonts } from '../../assets/fonts';
-import Container from '../../component/customComponent/Container';
-import HomeVideo from '../../component/customComponent/HomeVideo';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../assets/types/Types';
+} from "react-native";
+import React, { useEffect, useRef } from "react";
+import { Colors } from "../../assets/colors/Colors";
+import { StatusBar } from "expo-status-bar";
+import { icon } from "../../assets/images/Image";
+import { ScreenHeight, ScreenWidth } from "../../component/helper/Helper";
+import { PoppinsFonts } from "../../assets/fonts";
+import Container from "../../component/customComponent/Container";
+import HomeVideo from "../../component/customComponent/HomeVideo";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../assets/types/Types";
+import { useDispatch, useSelector } from "react-redux";
+import { authStoreActions, getAuthStoreState } from "../../redux/authStore";
+import { clear, load } from "../../component/helper/storage";
+import { getUserByTokenApi } from "../../utils/api";
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const dispatch = useDispatch();
   const handlePlazaPress = () => {
-    navigation.navigate('Plaza');
+    navigation.navigate("Plaza");
   };
-  const handleVaultPress = () => {
-    navigation.navigate('CollectorsVault');
+  const handleVaultPress = async () => {
+    navigation.navigate("CollectorsVault");
+    await clear();
   };
+
+  const { userDetails } = useSelector((rootState) =>
+    getAuthStoreState(rootState)
+  );
+
+  const fetchData = async () => {
+    const currentUser: any = await load("currentUser");
+
+    const data = await getUserByTokenApi(currentUser.user.accessToken);
+    dispatch(
+      authStoreActions.setUserDetails({
+        ...data.data,
+        ...{ isLoggedIn: true },
+      })
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
-    <Container bottomTexts={['we', 'are', 'the', 'collective']}>
-      <StatusBar style='light' />
+    <Container bottomTexts={["we", "are", "the", "collective"]}>
+      <StatusBar style="light" />
       <View style={styles.container}>
         <View style={styles.mainHeading}>
           <Image source={icon.Home432} style={styles.homeIcon} />
@@ -36,7 +62,7 @@ export const Home = () => {
 
         <TouchableOpacity
           style={styles.userIcon}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate("Profile")}
         >
           <View style={styles.circle}>
             {/* Half Black View */}
@@ -49,7 +75,7 @@ export const Home = () => {
           <Text style={styles.txet2}>Agora</Text>
         </View>
         <HomeVideo
-          topTitle='Plaza'
+          topTitle="Plaza"
           bottomTitle="Collector's Vault"
           onTopPress={handlePlazaPress}
           onBottomPress={handleVaultPress}
@@ -64,11 +90,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.black,
   },
-  container: { justifyContent: 'center', alignItems: 'center' },
+  container: { justifyContent: "center", alignItems: "center" },
   mainHeading: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Platform.OS === 'ios' ? ScreenHeight * 0.16 : ScreenHeight * 0.2,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    height: Platform.OS === "ios" ? ScreenHeight * 0.16 : ScreenHeight * 0.2,
     paddingBottom: 20,
 
     width: ScreenWidth,
@@ -78,21 +104,21 @@ const styles = StyleSheet.create({
     height: 72,
   },
   mainHeadingText: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 20,
   },
   userIcon: {
     marginTop: 10,
     width: 100,
     height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Colors.white,
     borderRadius: 55,
   },
   userImage: {
-    position: 'absolute',
+    position: "absolute",
     width: 76,
     height: 76,
   },
@@ -100,14 +126,14 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 50,
-    backgroundColor: 'transparent',
-    overflow: 'hidden', // Hide the overflowing black part
+    backgroundColor: "transparent",
+    overflow: "hidden", // Hide the overflowing black part
   },
   halfBlack: {
-    position: 'absolute',
-    width: '50%',
-    height: '100%',
-    backgroundColor: 'black',
+    position: "absolute",
+    width: "50%",
+    height: "100%",
+    backgroundColor: "black",
     left: 0, // Covers half of the circle
   },
   txet1: {
