@@ -1,55 +1,108 @@
 import {
+  Alert,
   Image,
+  Linking,
   Platform,
   SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useEffect, useRef } from 'react';
-import { Colors } from '../../assets/colors/Colors';
-import { StatusBar } from 'expo-status-bar';
-import { icon } from '../../assets/images/Image';
-import { ScreenHeight, ScreenWidth } from '../../component/helper/Helper';
-import { PoppinsFonts } from '../../assets/fonts';
-import Container from '../../component/customComponent/Container';
-import HomeVideo from '../../component/customComponent/HomeVideo';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../assets/types/Types';
-import { useDispatch, useSelector } from 'react-redux';
-import { authStoreActions, getAuthStoreState } from '../../redux/authStore';
-import { clear, load } from '../../component/helper/storage';
-import { getUserByTokenApi } from '../../utils/api';
+} from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Colors } from "../../assets/colors/Colors";
+import { StatusBar } from "expo-status-bar";
+import { icon } from "../../assets/images/Image";
+import { ScreenHeight, ScreenWidth } from "../../component/helper/Helper";
+import { PoppinsFonts } from "../../assets/fonts";
+import Container from "../../component/customComponent/Container";
+import HomeVideo from "../../component/customComponent/HomeVideo";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { RootStackParamList } from "../../assets/types/Types";
+import { useDispatch, useSelector } from "react-redux";
+import { authStoreActions, getAuthStoreState } from "../../redux/authStore";
+import { clear, load } from "../../component/helper/storage";
+import { getUserByTokenApi } from "../../utils/api";
+import { Ionicons } from "@expo/vector-icons";
+import FastImage from "react-native-fast-image";
+import * as ImagePicker from "expo-image-picker";
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+  const [selectedImage, setSelectedImage] = useState("");
   const { userDetails } = useSelector((rootState) =>
     getAuthStoreState(rootState)
   );
 
   const themeBottomTopPress = () => {
-    navigation.navigate('Plaza');
+    navigation.navigate("Plaza");
   };
 
   const themeBottomButtonPress = async () => {
-    if (userDetails?.userProfile?.profileType === 'artist') {
-      navigation.navigate('Studio');
+    if (userDetails?.userProfile?.profileType === "artist") {
+      navigation.navigate("Studio");
     } else {
-      navigation.navigate('CollectorsVault');
+      navigation.navigate("CollectorsVault");
+    }
+  };
+
+  const pickImage = async () => {
+    try {
+      const { status } =
+        await ImagePicker.requestMediaLibraryPermissionsAsync();
+      if (status !== "granted") {
+        Alert.alert(
+          "Permission Denied",
+          "Photos access has been denied. Please enable it from the app settings to proceed.",
+
+          [
+            {
+              text: "Go to Settings",
+              onPress: () => Linking.openSettings(),
+            },
+            {
+              text: "Cancel",
+              style: "cancel",
+            },
+          ],
+          { cancelable: false }
+        );
+        return;
+      }
+      const result: ImagePicker.ImagePickerResult =
+        await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: "All",
+          aspect: [4, 3],
+          quality: 1,
+        });
+
+      if (result.canceled || !result.assets?.length) {
+        return;
+      }
+      const selectedAsset: ImagePicker.ImagePickerAsset = result.assets[0];
+      const currentUser: any = await load("currentUser");
+      console.log("selectedAsset---->>", selectedAsset);
+      setSelectedImage(selectedAsset.uri);
+      const fileObj = {
+        fileName: selectedAsset.fileName ?? "image.jpg",
+        fileType: selectedAsset.mimeType ?? "image/jpeg",
+      };
+    } catch (error) {
+      console.error("Error selecting image:", error);
+    } finally {
     }
   };
 
   const bottomTitleForVideoComponent =
-    userDetails?.userProfile?.profileType === 'artist'
-      ? 'Studio'
+    userDetails?.userProfile?.profileType === "artist"
+      ? "Studio"
       : "Collector's Vault";
   return (
-    <Container bottomTexts={['we', 'are', 'the', 'collective']}>
-      <StatusBar style='light' />
+    <Container bottomTexts={["we", "are", "the", "collective"]}>
+      <StatusBar style="light" />
       <View style={styles.container}>
         <View style={styles.mainHeading}>
-          {userDetails?.userProfile?.profileType === 'artist' ? (
+          {userDetails?.userProfile?.profileType === "artist" ? (
             <Image source={icon.artist432} style={styles.homeIcon} />
           ) : (
             <Image source={icon.Home432} style={styles.homeIcon} />
@@ -58,20 +111,52 @@ export const Home = () => {
 
         <TouchableOpacity
           style={styles.userIcon}
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.navigate("Profile")}
         >
           <View style={styles.circle}>
-            {/* Half Black View */}
             <View style={styles.halfBlack} />
           </View>
-          <Image source={icon.Avatar} style={styles.userImage} />
+          {selectedImage ? (
+            <Image
+              source={{ uri: selectedImage }}
+              style={[styles.userImage, { borderRadius: 38 }]}
+            />
+          ) : (
+            <Image source={icon.Avatar} style={styles.userImage} />
+          )}
+          <TouchableOpacity
+            onPress={() => {
+              pickImage();
+            }}
+            style={{
+              position: "absolute",
+              top: 0,
+              right: 7,
+              width: 20,
+              height: 20,
+              backgroundColor: Colors.white,
+              borderRadius: 10,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              source={icon.editIcon}
+              style={{
+                width: 15,
+                height: 15,
+              }}
+              tintColor={Colors.black}
+            />
+          </TouchableOpacity>
         </TouchableOpacity>
+
         <View style={styles.mainHeadingText}>
           <Text style={styles.txet1}>Hey, You</Text>
           <Text style={styles.txet2}>{userDetails?.user.name}</Text>
         </View>
         <HomeVideo
-          topTitle='Plaza'
+          topTitle="Plaza"
           bottomTitle={bottomTitleForVideoComponent}
           onTopPress={themeBottomTopPress}
           onBottomPress={themeBottomButtonPress}
@@ -86,11 +171,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.black,
   },
-  container: { justifyContent: 'center', alignItems: 'center' },
+  container: { justifyContent: "center", alignItems: "center" },
   mainHeading: {
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Platform.OS === 'ios' ? ScreenHeight * 0.16 : ScreenHeight * 0.2,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    height: Platform.OS === "ios" ? ScreenHeight * 0.16 : ScreenHeight * 0.2,
     paddingBottom: 20,
 
     width: ScreenWidth,
@@ -100,21 +185,21 @@ const styles = StyleSheet.create({
     height: 72,
   },
   mainHeadingText: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 20,
   },
   userIcon: {
     marginTop: 10,
     width: 100,
     height: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: Colors.white,
     borderRadius: 55,
   },
   userImage: {
-    position: 'absolute',
+    position: "absolute",
     width: 76,
     height: 76,
   },
@@ -122,14 +207,14 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     borderRadius: 50,
-    backgroundColor: 'transparent',
-    overflow: 'hidden', // Hide the overflowing black part
+    backgroundColor: "transparent",
+    overflow: "hidden", // Hide the overflowing black part
   },
   halfBlack: {
-    position: 'absolute',
-    width: '50%',
-    height: '100%',
-    backgroundColor: 'black',
+    position: "absolute",
+    width: "50%",
+    height: "100%",
+    backgroundColor: "black",
     left: 0, // Covers half of the circle
   },
   txet1: {
