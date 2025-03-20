@@ -79,13 +79,7 @@ export const Profile = () => {
   return (
     <Container bottomTexts={["it's", 'your', 'world']}>
       <View style={styles.mainHeader}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username='Hey, You'
-          name='Agora'
-          score='432'
-          scoreLabel='connoisseur'
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
       </View>
       <HomeVideo>
         <View style={styles.container}>

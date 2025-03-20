@@ -7,51 +7,43 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useRef, useState } from "react";
-import { PoppinsFonts } from "../../assets/fonts";
+} from 'react-native';
+import React, { useRef, useState } from 'react';
+import { PoppinsFonts } from '../../assets/fonts';
 import {
   inputFields,
   ProfileType,
   ScreenWidth,
   socialFields,
   SocialLinkIcon,
-} from "../../component/helper/Helper";
-import { Colors } from "../../assets/colors/Colors";
-import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
-import { RootStackParamList } from "../../assets/types/Types";
-import { Dropdown } from "react-native-element-dropdown";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import BottomSheet from "../../component/customComponent/BottomSheet";
-import { Ionicons } from "@expo/vector-icons";
-import { authStoreActions, getAuthStoreState } from "../../redux/authStore";
-import { useDispatch, useSelector } from "react-redux";
-import { createProfileApi } from "../../utils/api";
-import { clear, load, removeKeys, save } from "../../component/helper/storage";
+} from '../../component/helper/Helper';
+import { Colors } from '../../assets/colors/Colors';
+import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
+import { RootStackParamList } from '../../assets/types/Types';
+import { Dropdown } from 'react-native-element-dropdown';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import BottomSheet from '../../component/customComponent/BottomSheet';
+import { Ionicons } from '@expo/vector-icons';
+import { authStoreActions, getAuthStoreState } from '../../redux/authStore';
+import { useDispatch, useSelector } from 'react-redux';
+import { createProfileApi } from '../../utils/api';
+import { clear, load, removeKeys, save } from '../../component/helper/storage';
 
 export const CreateProfile = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const refRBSheet = useRef<any>();
-  const { userDetails } = useSelector((rootState) =>
-    getAuthStoreState(rootState)
-  );
-  console.log("userDetails---->>", userDetails);
-
   const [userProfileDetails, setUserProfileDetails] = useState<any>({
-    profileType: "",
-    location: "",
-    portfolioLink: "",
-    musicInOneWord: "",
-    facebookLink: "",
-    instagramLink: "",
-    twitterLink: "",
-    linkedinLink: "",
+    profileType: '',
+    location: '',
+    portfolioLink: '',
+    musicInOneWord: '',
+    facebookLink: '',
+    instagramLink: '',
+    twitterLink: '',
+    linkedinLink: '',
   });
-
-  console.log("userProfileDetails---->>", userProfileDetails);
-
-  const [error, setError] = useState<any>({ profileType: "", location: "" });
+  const [error, setError] = useState<any>({ profileType: '', location: '' });
   const [buttonLoader, setButtonLoader] = useState(false);
 
   const handleChange = (key: any, value: string) => {
@@ -59,24 +51,26 @@ export const CreateProfile = () => {
       ...prev,
       [key]: value,
     }));
-    setError((prevError: any) => ({ ...prevError, [key]: "" }));
+    setError((prevError: any) => ({ ...prevError, [key]: '' }));
   };
+
   const handleChangeSocialLink = (key: any, value: string) => {
     setUserProfileDetails((prev: any) => ({
       ...prev,
       [key]: value,
     }));
   };
+
   const handleSave = () => {
     const updatedDetails = { ...userProfileDetails };
     let invalidFields: string[] = [];
 
     // Friendly field labels for alert
     const fieldLabels: { [key: string]: string } = {
-      facebookLink: "Facebook",
-      instagramLink: "Instagram",
-      twitterLink: "Twitter",
-      linkedinLink: "LinkedIn",
+      facebookLink: 'Facebook',
+      instagramLink: 'Instagram',
+      twitterLink: 'Twitter',
+      linkedinLink: 'LinkedIn',
     };
 
     const urlPatterns: { [key: string]: RegExp } = {
@@ -96,18 +90,18 @@ export const CreateProfile = () => {
       if (value) {
         if (urlPatterns[key] && !urlPatterns[key].test(value)) {
           invalidFields.push(fieldLabels[key]); // Store readable field names
-          updatedDetails[key] = ""; // Clear invalid field
+          updatedDetails[key] = ''; // Clear invalid field
         }
       } else {
-        updatedDetails[key] = ""; // Set empty string if field is empty
+        updatedDetails[key] = ''; // Set empty string if field is empty
       }
     }
 
     if (invalidFields.length > 0) {
       Alert.alert(
-        "Invalid URL",
-        `Please enter a valid ${invalidFields.join(", ")} URL${
-          invalidFields.length > 1 ? "s" : ""
+        'Invalid URL',
+        `Please enter a valid ${invalidFields.join(', ')} URL${
+          invalidFields.length > 1 ? 's' : ''
         }`
       );
       setUserProfileDetails(updatedDetails);
@@ -121,44 +115,39 @@ export const CreateProfile = () => {
 
   const handleSubmit = async () => {
     // await clear();
-    let newError = { profileType: "", location: "" };
+    let newError = { profileType: '', location: '' };
     let isValid = true;
 
     if (!userProfileDetails.profileType.trim()) {
-      newError.profileType = "Profile Type is required";
+      newError.profileType = 'Profile Type is required';
       isValid = false;
     }
     if (!userProfileDetails.location.trim()) {
-      newError.location = "Location is required";
+      newError.location = 'Location is required';
       isValid = false;
     }
 
     setError(newError);
 
     if (isValid) {
-      const currentUser: any = await load("currentUser");
-      console.log("currentUse on CreateProfile---->>", currentUser);
-      console.log("Form submitted successfully:", userProfileDetails);
+      const currentUser: any = await load('currentUser');
       try {
         setButtonLoader(true);
         const createProRes = await createProfileApi(
           currentUser.user.accessToken,
           userProfileDetails
         );
-        console.log("createProRes---->>", createProRes);
 
         if (createProRes.status) {
           const filteredData = {
-            user: removeKeys(createProRes.data.user, ["__v", "password"]),
+            user: removeKeys(createProRes.data.user, ['__v', 'password']),
             userProfile: removeKeys(createProRes.data.userProfile, [
-              "__v",
-              "_id",
+              '__v',
+              '_id',
             ]),
             ...{ isLoggedIn: true },
           };
-          console.log("filteredData----->>", filteredData);
-
-          await save("currentUser", filteredData);
+          await save('currentUser', filteredData);
           dispatch(
             authStoreActions.setUserDetails({
               ...filteredData,
@@ -166,13 +155,13 @@ export const CreateProfile = () => {
             })
           );
           setButtonLoader(false);
-          navigation.navigate("Home");
+          navigation.navigate('Home');
         } else {
           setButtonLoader(false);
         }
       } catch (error) {
         setButtonLoader(false);
-        console.log("Error createProfileApi--->>", error);
+        console.log('Error createProfileApi--->>', error);
       } finally {
         setButtonLoader(false);
       }
@@ -195,15 +184,15 @@ export const CreateProfile = () => {
               itemTextStyle={styles.itemTextStyle}
               placeholderStyle={styles.placeholderStyle}
               onChange={(item) =>
-                handleChange("profileType", item.label.toLowerCase())
+                handleChange('profileType', item.label.toLowerCase())
               }
               data={ProfileType}
               search={false}
               value={userProfileDetails?.profileType}
-              labelField="label"
-              valueField="value"
-              activeColor="transparent"
-              placeholder="Profile Type"
+              labelField='label'
+              valueField='value'
+              activeColor='transparent'
+              placeholder='Profile Type'
               // renderItem={renderItem}
             />
             {error.profileType ? (
@@ -258,7 +247,7 @@ export const CreateProfile = () => {
             }}
           >
             {buttonLoader ? (
-              <ActivityIndicator size={"small"} color={Colors.black} />
+              <ActivityIndicator size={'small'} color={Colors.black} />
             ) : (
               <Text style={styles.SubmitText}>Submit</Text>
             )}
@@ -275,7 +264,7 @@ export const CreateProfile = () => {
           {socialFields?.map(({ key, placeholder, keyboardType }) => (
             <View
               key={key}
-              style={[styles.inputContainer, { width: "100%", height: 65 }]}
+              style={[styles.inputContainer, { width: '100%', height: 65 }]}
             >
               <Text
                 style={{
@@ -292,7 +281,7 @@ export const CreateProfile = () => {
                   {
                     borderWidth: 0.5,
                     borderRadius: 40,
-                    width: "100%",
+                    width: '100%',
 
                     borderColor: Colors.BattleshipGray,
                     paddingHorizontal: 15, // Padding for placeholder
@@ -310,10 +299,10 @@ export const CreateProfile = () => {
             style={[
               styles.SubmitButton,
               {
-                width: "95%",
+                width: '95%',
                 backgroundColor: Colors.black,
                 marginTop: 20,
-                alignSelf: "center",
+                alignSelf: 'center',
               },
             ]}
             onPress={handleSave}
@@ -330,12 +319,11 @@ export const CreateProfile = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    height: 500,
+    paddingVertical: 30,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   firstHeading: {
     fontFamily: PoppinsFonts.Medium,
@@ -346,7 +334,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   inputContainer: {
-    position: "relative",
+    position: 'relative',
     height: 46,
     backgroundColor: Colors.white,
 
@@ -354,16 +342,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderContainer: {
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "center",
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
     left: 20,
   },
   placeholderText: {
-    color: "#BDBDBD",
+    color: '#BDBDBD',
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 8,
@@ -375,7 +363,7 @@ const styles = StyleSheet.create({
 
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   inputIconEmail: {
     height: 15,
@@ -394,8 +382,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 10,
     borderRadius: 23,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   SubmitText: {
     fontSize: 16,
@@ -409,13 +397,13 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   itemContainerStyle: {},
   containerStyle: {
@@ -424,21 +412,21 @@ const styles = StyleSheet.create({
   itemTextStyle: {
     fontFamily: PoppinsFonts.Regular,
     fontSize: 14,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   selectedTextStyle: {
     paddingLeft: 14,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
-    backgroundColor: "transparent",
+    color: '#BDBDBD',
+    backgroundColor: 'transparent',
   },
   socialContainer: {
     paddingTop: 20,
     paddingRight: 5,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   socialTextView: {},
   socialText: {
@@ -447,17 +435,17 @@ const styles = StyleSheet.create({
     color: Colors.white,
   },
   socialIconView: {
-    flexDirection: "row",
+    flexDirection: 'row',
 
-    width: "auto",
+    width: 'auto',
   },
   socialIcon: {
     width: 32,
     height: 32,
   },
   modalContainer: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
     paddingHorizontal: 20,
     backgroundColor: Colors.white,
   },
@@ -466,7 +454,7 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: Colors.white,
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
   modalTitle: {
     fontFamily: PoppinsFonts.Medium,
@@ -474,32 +462,32 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   input1: {
-    width: "100%",
+    width: '100%',
     height: 40,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: 'gray',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 15,
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
   },
   cancelButton: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: 10,
-    backgroundColor: "red",
+    backgroundColor: 'red',
     borderRadius: 5,
     marginRight: 10,
   },
   saveButton: {
     flex: 1,
-    alignItems: "center",
+    alignItems: 'center',
     paddingVertical: 10,
-    backgroundColor: "green",
+    backgroundColor: 'green',
     borderRadius: 5,
   },
   buttonText: {
@@ -507,10 +495,10 @@ const styles = StyleSheet.create({
     fontFamily: PoppinsFonts.Medium,
   },
   errorText: {
-    color: "red",
+    color: 'red',
     fontSize: 12,
     marginTop: 3,
     paddingLeft: 15,
-    textAlign: "left",
+    textAlign: 'left',
   },
 });

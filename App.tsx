@@ -20,7 +20,6 @@ export default function App() {
         serializableCheck: false,
       }),
   });
-  console.log('fontsLoaded', fontsLoaded);
 
   return (
     <Provider store={Store}>

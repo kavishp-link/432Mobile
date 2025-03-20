@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Dimensions,
   Image,
@@ -8,18 +8,18 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
-} from "react-native";
-import { Ionicons } from "@expo/vector-icons";
-import { HeaderProfile } from "../../../component/customComponent/HeaderProfile";
-import { icon } from "../../../assets/images/Image";
-import Container from "../../../component/customComponent/Container";
-import { TopBar } from "../../../component/customComponent/TopBar";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../../assets/types/Types";
-import { PoppinsFonts } from "../../../assets/fonts";
-import { Colors } from "../../../assets/colors/Colors";
-import { graphMockData } from "../../../component/helper/Helper";
-import { LineChart, PieChart } from "react-native-chart-kit";
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { HeaderProfile } from '../../../component/customComponent/HeaderProfile';
+import { icon } from '../../../assets/images/Image';
+import Container from '../../../component/customComponent/Container';
+import { TopBar } from '../../../component/customComponent/TopBar';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../../assets/types/Types';
+import { PoppinsFonts } from '../../../assets/fonts';
+import { Colors } from '../../../assets/colors/Colors';
+import { graphMockData } from '../../../component/helper/Helper';
+import { LineChart, PieChart } from 'react-native-chart-kit';
 
 export const WorkspaceGraph = () => {
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
@@ -29,26 +29,20 @@ export const WorkspaceGraph = () => {
   return (
     <Container>
       <TopBar
-        midText={"Frequency Bazaar"}
+        midText={'Frequency Bazaar'}
         onLeftPress={() => navigation.goBack()}
         isBackButton={true}
       />
 
       <View style={{ marginVertical: 20 }}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username="Hey, You"
-          name="Agora"
-          score="432"
-          scoreLabel="Artist"
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
       </View>
       <Text style={styles.sectionTitle} numberOfLines={2}>
         Frequency Bazaar
       </Text>
 
       <View style={styles.divider} />
-      <ScrollView style={{ alignSelf: "center", marginHorizontal: 10 }}>
+      <ScrollView style={{ alignSelf: 'center', marginHorizontal: 10 }}>
         <Text style={[styles.subHeader, { fontSize: 16 }]} numberOfLines={1}>
           Portfolio Performance
         </Text>
@@ -69,9 +63,9 @@ export const WorkspaceGraph = () => {
 
         <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
             marginVertical: 15,
             paddingHorizontal: 10,
           }}
@@ -81,12 +75,12 @@ export const WorkspaceGraph = () => {
               style={[styles.subHeader, { fontSize: 16, maxWidth: 100 }]}
               numberOfLines={2}
             >
-              Royalty{"\n"}Insights
+              Royalty{'\n'}Insights
             </Text>
             <Ionicons
-              name="arrow-up"
+              name='arrow-up'
               size={20}
-              color={"#4ADC67"}
+              color={'#4ADC67'}
               style={{ marginLeft: 10 }}
             />
             <Text style={styles.royaltyText}>+{data.royaltyGrowth}%</Text>
@@ -96,11 +90,11 @@ export const WorkspaceGraph = () => {
             <Text
               style={[
                 styles.subHeader,
-                { fontSize: 16, marginHorizontal: 10, textAlign: "left" },
+                { fontSize: 16, marginHorizontal: 10, textAlign: 'left' },
               ]}
               numberOfLines={2}
             >
-              Marketing {"\n"}PieChart
+              Marketing {'\n'}PieChart
             </Text>
           </View>
         </View>
@@ -112,20 +106,20 @@ export const WorkspaceGraph = () => {
             <Image source={icon.audienceLogo} style={styles.audienceIcon} />
           </View>
 
-          <View style={{ maxWidth: screenWidth * 0.6, alignItems: "center" }}>
+          <View style={{ maxWidth: screenWidth * 0.6, alignItems: 'center' }}>
             <PieChart
               data={graphMockData.funnelData}
               width={screenWidth * 0.75}
               height={screenWidth * 0.37}
               chartConfig={{
-                backgroundColor: "#121212",
-                backgroundGradientFrom: "#1E1E1E",
-                backgroundGradientTo: "#1E1E1E",
+                backgroundColor: '#121212',
+                backgroundGradientFrom: '#1E1E1E',
+                backgroundGradientTo: '#1E1E1E',
                 color: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
                 labelColor: (opacity = 1) => `rgba(255, 0, 0, ${opacity})`,
               }}
-              accessor={"population"}
-              backgroundColor={"transparent"}
+              accessor={'population'}
+              backgroundColor={'transparent'}
               paddingLeft={(screenWidth * 0.01 - 15).toFixed(2)}
               center={[screenWidth * 0.085, screenHeight * 0.01]}
             />
@@ -144,44 +138,44 @@ const lineChartConfig = {
   color: (opacity = 1) => `rgba(0, 255, 255, ${opacity})`,
   strokeWidth: 2,
   propsForDots: {
-    r: "4",
-    strokeWidth: "2",
-    stroke: "cyan",
+    r: '4',
+    strokeWidth: '2',
+    stroke: 'cyan',
   },
 };
 
 const styles = StyleSheet.create({
   sectionTitle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     fontFamily: PoppinsFonts.SemiBold,
-    textAlign: "center",
+    textAlign: 'center',
   },
   divider: {
-    width: "100%",
+    width: '100%',
     height: 1,
     backgroundColor: Colors.borderColor,
     marginVertical: 10,
   },
   subHeader: {
-    color: "white",
+    color: 'white',
     fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
   },
   rowBetween: {
-    flexDirection: "row",
-    alignSelf: "center",
+    flexDirection: 'row',
+    alignSelf: 'center',
   },
   chartStyle: {
     marginVertical: 8,
     borderRadius: 10,
   },
   audienceCard: {
-    backgroundColor: "#1E1E1E",
+    backgroundColor: '#1E1E1E',
     padding: 15,
     borderRadius: 10,
-    alignItems: "center",
+    alignItems: 'center',
   },
   audienceIcon: {
     width: 57,
@@ -189,18 +183,18 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   button: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     padding: 15,
     marginTop: 20,
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttonText: {
     fontFamily: PoppinsFonts.Medium,
   },
   flexBox: {
     flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     padding: 10,
   },
   separator: {
@@ -209,7 +203,7 @@ const styles = StyleSheet.create({
     minHeight: 50,
   },
   royaltyText: {
-    color: "#4ADC67",
+    color: '#4ADC67',
     fontFamily: PoppinsFonts.SemiBold,
     fontSize: 22,
     marginLeft: 5,

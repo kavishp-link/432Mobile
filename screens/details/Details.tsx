@@ -54,13 +54,7 @@ export const Details = ({ route }: any) => {
         midText={'Back'}
       />
       <View style={styles.mainContainer}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username='Hey, You'
-          name='Agora'
-          score='432'
-          scoreLabel='connoisseur'
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
         <Image source={data.image} style={styles.imageStyle} />
         <View style={styles.headingView}>
           <Text style={styles.mainText}>{data.text}</Text>

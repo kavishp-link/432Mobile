@@ -14,6 +14,7 @@ import { FrequencyBaazaar } from './frequencyBaazaar/FrequencyBaazaar';
 import { Genres } from './genres/Genres';
 import { MusicWorld } from './musicWorld/MusicWorld';
 import { Details } from './details/Details';
+import { Studio } from './studio/Studio';
 export {
   CollectorsVault,
   Login,
@@ -31,4 +32,5 @@ export {
   Genres,
   MusicWorld,
   Details,
+  Studio,
 };

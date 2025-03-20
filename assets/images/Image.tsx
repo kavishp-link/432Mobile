@@ -47,4 +47,5 @@ export const icon = {
   city6: require('./city6.png'),
   blackswipe: require('./blackSwipe.png'),
   themeSelect: require('./ThemeSelect.png'),
+  artist432: require('./432artist.png'),
 };

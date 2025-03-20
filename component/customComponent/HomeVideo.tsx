@@ -9,6 +9,7 @@ import { GifThemes } from '../helper/Helper';
 import { getGlobalStoreState } from '../../redux/globalStore';
 import { useSelector } from 'react-redux';
 import FastImage from 'react-native-fast-image';
+import { getAuthStoreState } from '../../redux/authStore';
 interface HomeVideoProps {
   children?: React.ReactNode;
   topTitle?: string; // Title for the top button
@@ -27,12 +28,16 @@ const HomeVideo: React.FC<HomeVideoProps> = ({
   const { themeUrl } = useSelector((rootState) =>
     getGlobalStoreState(rootState)
   );
+  const { userDetails } = useSelector((rootState) =>
+    getAuthStoreState(rootState)
+  );
   // Function to determine dynamic styles
 
   const getContainerStyle = (title: string): ViewStyle => {
     const isSmallRounded =
       title === 'Frequency Baazaar' || title === 'Galleria';
-    const isCollectorVault = title === `Collector's Vault`;
+    const isCollectorVault =
+      title === `Collector's Vault` || title === 'Studio';
     const isPlaza = title === 'Plaza';
     console.log('isSmallRounded', isSmallRounded);
 
@@ -87,22 +92,44 @@ const HomeVideo: React.FC<HomeVideoProps> = ({
         {children}
       </View>
 
-      {/* Bottom Video Section */}
-      <View style={[styles.videoContainer, getContainerStyle(bottomTitle)]}>
-        <TouchableOpacity
-          style={[
-            topTitle === "Collector's Vault" ? styles.plaza : styles.Galleria,
-          ]}
-          onPress={onBottomPress}
-        >
-          {bottomTitle === "Collector's Vault" && (
-            <Image source={icon.play} style={styles.playIcon} />
-          )}
+      {userDetails?.userProfile?.profileType === 'artist' ? (
+        <View style={[styles.videoContainer, getContainerStyle(bottomTitle)]}>
+          <TouchableOpacity
+            style={[topTitle === 'Plaza' ? styles.plaza : styles.Galleria]}
+            onPress={onBottomPress}
+          >
+            {bottomTitle === 'Studio' && (
+              <Image source={icon.play} style={styles.playIcon} />
+            )}
 
-          <Text style={[styles.mainContainerText]}>{bottomTitle}</Text>
-        </TouchableOpacity>
-        <FastImage source={themeUrl} style={styles.video} resizeMode='cover' />
-      </View>
+            <Text style={[styles.mainContainerText]}>{bottomTitle}</Text>
+          </TouchableOpacity>
+          <FastImage
+            source={themeUrl}
+            style={styles.video}
+            resizeMode='cover'
+          />
+        </View>
+      ) : (
+        <View style={[styles.videoContainer, getContainerStyle(bottomTitle)]}>
+          <TouchableOpacity
+            style={[topTitle === 'Plaza' ? styles.plaza : styles.Galleria]}
+            onPress={onBottomPress}
+          >
+            {bottomTitle === "Collector's Vault" && (
+              <Image source={icon.play} style={styles.playIcon} />
+            )}
+
+            <Text style={[styles.mainContainerText]}>{bottomTitle}</Text>
+          </TouchableOpacity>
+          <FastImage
+            source={themeUrl}
+            style={styles.video}
+            resizeMode='cover'
+          />
+        </View>
+      )}
+      {/* Bottom Video Section */}
     </View>
   );
 };

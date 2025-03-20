@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createStackNavigator } from "@react-navigation/stack";
+import React, { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import {
   CollectorsVault,
   CreateProfile,
@@ -18,29 +18,31 @@ import {
   Genres,
   MusicWorld,
   Details,
-} from "../../screens";
-import ThemePreview from "../customComponent/ThemePreview";
-import { load } from "../helper/storage";
-import { View } from "react-native";
+  Studio,
+} from '../../screens';
+import ThemePreview from '../customComponent/ThemePreview';
+import { load } from '../helper/storage';
+import { View } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { authStoreActions } from '../../redux/authStore';
 
 const Stack = createStackNavigator();
 
 export const Navigation = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [loading, setLoading] = useState(true);
-  const [profileType, setProfileType] = useState("");
-
+  const [profileType, setProfileType] = useState('');
+  const dispatch = useDispatch();
   useEffect(() => {
     const checkCurrentUser = async () => {
       try {
-        const currentUser: any = await load("currentUser");
-        console.log("currentUse on Navigation---->>", currentUser);
-        // if (currentUser) {
+        const currentUser: any = await load('currentUser');
         setProfileType(
           currentUser?.userProfile?.profileType
             ? currentUser.userProfile?.profileType
-            : ""
+            : ''
         );
+        dispatch(authStoreActions.setUserDetails(currentUser));
         if (currentUser?.isLoggedIn) {
           setIsLoggedIn(true);
         } else {
@@ -48,16 +50,13 @@ export const Navigation = () => {
         }
         // }
       } catch (error) {
-        console.error("Error checking current user:", error);
+        console.error('Error checking current user:', error);
       } finally {
         setLoading(false);
       }
     };
     checkCurrentUser();
   }, []);
-
-  console.log("isLoggedIn---->>", isLoggedIn);
-  console.log("profileType---->>", profileType);
 
   if (loading) {
     return null;
@@ -67,92 +66,97 @@ export const Navigation = () => {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName={
-          isLoggedIn ? (profileType ? "Home" : "CreateProfile") : "Login"
+          isLoggedIn ? (profileType ? 'Home' : 'CreateProfile') : 'Login'
         }
       >
         <Stack.Screen
-          name="Login"
+          name='Login'
           component={Login}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Register"
+          name='Register'
           component={Register}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CreateProfile"
+          name='CreateProfile'
           component={CreateProfile}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ForgetPassword"
+          name='ForgetPassword'
           component={ForgetPassword}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Home"
+          name='Home'
           component={Home}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Profile"
+          name='Profile'
           component={Profile}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="CollectorsVault"
+          name='CollectorsVault'
           component={CollectorsVault}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Galleria"
+          name='Galleria'
           component={Galleria}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="GalleriaCardDetails"
+          name='GalleriaCardDetails'
           component={GalleriaCardDetails}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="WorkspaceScreen"
+          name='WorkspaceScreen'
           component={WorkspaceScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="WorkspaceGraph"
+          name='WorkspaceGraph'
           component={WorkspaceGraph}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="FrequencyBaazaar"
+          name='FrequencyBaazaar'
           component={FrequencyBaazaar}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Plaza"
+          name='Plaza'
           component={Plaza}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Genres"
+          name='Genres'
           component={Genres}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="MusicWorld"
+          name='MusicWorld'
           component={MusicWorld}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="ThemePreview"
+          name='ThemePreview'
           component={ThemePreview}
-          options={{ headerShown: false, presentation: "modal" }}
+          options={{ headerShown: false, presentation: 'modal' }}
         />
         <Stack.Screen
-          name="Details"
+          name='Details'
           component={Details}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Studio'
+          component={Studio}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

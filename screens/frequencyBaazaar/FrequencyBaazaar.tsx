@@ -36,13 +36,7 @@ export const FrequencyBaazaar = () => {
       />
 
       <View style={styles.headerView}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username='Hey, You'
-          name='Agora'
-          score='432'
-          scoreLabel='connoisseur'
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
         <View style={styles.tabContainer}>
           <TouchableOpacity onPress={() => navigation.navigate('Genres')}>
             <Text style={styles.tabText}>Genres</Text>

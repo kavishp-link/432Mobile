@@ -30,13 +30,7 @@ export const Galleria = () => {
         isBackButton={true}
       />
       <View style={{ marginVertical: 20 }}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username='Hey, You'
-          name='Agora'
-          score='432'
-          scoreLabel='connoisseur'
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
       </View>
       <FlatList
         data={galleriaMockData}

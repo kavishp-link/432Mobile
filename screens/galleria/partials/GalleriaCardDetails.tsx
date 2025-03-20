@@ -6,29 +6,29 @@ import {
   StyleSheet,
   Text,
   View,
-} from "react-native";
-import React from "react";
-import { TopBar } from "../../../component/customComponent/TopBar";
-import Container from "../../../component/customComponent/Container";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { icon } from "../../../assets/images/Image";
-import { HeaderProfile } from "../../../component/customComponent/HeaderProfile";
-import { PoppinsFonts } from "../../../assets/fonts";
-import { Colors } from "../../../assets/colors/Colors";
-import { GalleriaCard } from "../../../component/customComponent/GalleriaCard";
+} from 'react-native';
+import React from 'react';
+import { TopBar } from '../../../component/customComponent/TopBar';
+import Container from '../../../component/customComponent/Container';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { icon } from '../../../assets/images/Image';
+import { HeaderProfile } from '../../../component/customComponent/HeaderProfile';
+import { PoppinsFonts } from '../../../assets/fonts';
+import { Colors } from '../../../assets/colors/Colors';
+import { GalleriaCard } from '../../../component/customComponent/GalleriaCard';
 import {
   cardMockData,
   galleriaCardMockData,
   galleriaMockData,
-} from "../../../component/helper/Helper";
-import { RootStackParamList } from "../../../assets/types/Types";
+} from '../../../component/helper/Helper';
+import { RootStackParamList } from '../../../assets/types/Types';
 
 export const GalleriaCardDetails = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   return (
-    <Container bottomTexts={["art", "is", "wealth"]}>
+    <Container bottomTexts={['art', 'is', 'wealth']}>
       <TopBar
-        midText={"Shubhi Shukla"}
+        midText={'Shubhi Shukla'}
         onLeftPress={() => {
           navigation.goBack();
         }}
@@ -36,13 +36,7 @@ export const GalleriaCardDetails = () => {
       />
 
       <View style={{ marginVertical: 20 }}>
-        <HeaderProfile
-          avatar={icon.userAvatar}
-          username="Hey, You"
-          name="Agora"
-          score="432"
-          scoreLabel="connoisseur"
-        />
+        <HeaderProfile avatar={icon.userAvatar} />
       </View>
       <ScrollView>
         <View style={styles.card}>
@@ -50,7 +44,7 @@ export const GalleriaCardDetails = () => {
           <View
             style={{
               padding: 10,
-              alignSelf: "flex-start",
+              alignSelf: 'flex-start',
             }}
           >
             <Text
@@ -80,7 +74,7 @@ export const GalleriaCardDetails = () => {
               {...item}
               isDisable={false}
               onPress={() => {
-                navigation.navigate("WorkspaceScreen");
+                navigation.navigate('WorkspaceScreen');
               }}
             />
           )}
@@ -93,15 +87,15 @@ export const GalleriaCardDetails = () => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#1F1F1F",
+    backgroundColor: '#1F1F1F',
     borderRadius: 10,
     marginBottom: 15,
-    width: "90%",
-    alignItems: "center",
-    alignSelf: "center",
+    width: '90%',
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   image: {
-    width: "100%",
+    width: '100%',
     height: 200,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
@@ -110,25 +104,25 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 22,
     fontFamily: PoppinsFonts.Bold,
-    textAlign: "left",
+    textAlign: 'left',
     width: 205,
   },
   subtitle: {
-    color: "#aaa",
+    color: '#aaa',
     fontSize: 12,
     fontFamily: PoppinsFonts.Regular,
-    textAlign: "left",
+    textAlign: 'left',
     marginVertical: 5,
   },
   container: {
     flex: 1,
-    backgroundColor: "#121212",
+    backgroundColor: '#121212',
     padding: 20,
   },
   header: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-evenly",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
     marginBottom: 20,
   },
   avatar: {
@@ -137,40 +131,40 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   username: {
-    color: "#aaa",
+    color: '#aaa',
     fontSize: 14,
   },
   name: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   scoreContainer: {
-    alignItems: "center",
+    alignItems: 'center',
   },
   score: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   scoreLabel: {
-    color: "#aaa",
+    color: '#aaa',
     fontSize: 12,
   },
   sectionTitle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     // marginBottom: 10,
     fontFamily: PoppinsFonts.Regular,
-    textAlign: "center",
+    textAlign: 'center',
   },
   row: {
-    justifyContent: "space-between",
+    justifyContent: 'space-between',
     marginHorizontal: 20,
   },
   divider: {
-    width: "100%",
+    width: '100%',
     height: 1,
     backgroundColor: Colors.borderColor,
     marginVertical: 10,

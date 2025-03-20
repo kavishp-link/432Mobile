@@ -8,37 +8,37 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import React, { useState } from "react";
-import LoginAndRegisterCustom from "../../component/customComponent/LoginAndRegisterCustom";
-import { Colors } from "../../assets/colors/Colors";
-import { icon } from "../../assets/images/Image";
-import { PoppinsFonts } from "../../assets/fonts";
-import { ScreenWidth } from "../../component/helper/Helper";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { RootStackParamList } from "../../assets/types/Types";
-import { loginApi } from "../../utils/api";
-import { load, removeKeys, save } from "../../component/helper/storage";
-import { useDispatch, useSelector } from "react-redux";
-import { authStoreActions, getAuthStoreState } from "../../redux/authStore";
+} from 'react-native';
+import React, { useState } from 'react';
+import LoginAndRegisterCustom from '../../component/customComponent/LoginAndRegisterCustom';
+import { Colors } from '../../assets/colors/Colors';
+import { icon } from '../../assets/images/Image';
+import { PoppinsFonts } from '../../assets/fonts';
+import { ScreenWidth } from '../../component/helper/Helper';
+import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../assets/types/Types';
+import { loginApi } from '../../utils/api';
+import { load, removeKeys, save } from '../../component/helper/storage';
+import { useDispatch, useSelector } from 'react-redux';
+import { authStoreActions, getAuthStoreState } from '../../redux/authStore';
 
 export const Login = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const dispatch = useDispatch();
 
   const [loginCreditional, setLoginCreditional] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [error, setError] = useState<{ email: string; password: string }>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const [buttonLoader, setButtonLoader] = useState(false);
 
   const handleChange = (key: string, value: string) => {
     setLoginCreditional((prevForm) => ({ ...prevForm, [key]: value }));
-    setError((prevError) => ({ ...prevError, [key]: "" }));
+    setError((prevError) => ({ ...prevError, [key]: '' }));
   };
 
   const validateEmail = (email: string) => {
@@ -48,21 +48,21 @@ export const Login = () => {
 
   const handleLogin = async () => {
     let valid = true;
-    let newError = { email: "", password: "" };
+    let newError = { email: '', password: '' };
 
     if (!loginCreditional.email) {
-      newError.email = "Email is required";
+      newError.email = 'Email is required';
       valid = false;
     } else if (!validateEmail(loginCreditional.email)) {
-      newError.email = "Enter a valid email address";
+      newError.email = 'Enter a valid email address';
       valid = false;
     }
 
     if (!loginCreditional.password) {
-      newError.password = "Password is required";
+      newError.password = 'Password is required';
       valid = false;
     } else if (loginCreditional.password.length < 6) {
-      newError.password = "Password must be at least 6 characters";
+      newError.password = 'Password must be at least 6 characters';
       valid = false;
     }
     setError(newError);
@@ -73,15 +73,13 @@ export const Login = () => {
           loginCreditional.email,
           loginCreditional.password
         );
-        console.log("resLogin----->>", resLogin);
-
         if (resLogin.status) {
           const filteredUser = removeKeys(resLogin.data.user, [
-            "__v",
-            "password",
+            '__v',
+            'password',
           ]);
           const filteredUserProfile = resLogin.data.userProfile
-            ? removeKeys(resLogin.data.userProfile, ["__v", "_id"])
+            ? removeKeys(resLogin.data.userProfile, ['__v', '_id'])
             : null;
 
           const filteredData = {
@@ -89,26 +87,21 @@ export const Login = () => {
             ...(filteredUserProfile && { userProfile: filteredUserProfile }),
             ...{ isLoggedIn: true },
           };
-
-          console.log("filteredData----->>", filteredData);
-
-          await save("currentUser", filteredData);
+          await save('currentUser', filteredData);
           dispatch(authStoreActions.setUserDetails(filteredData));
-
-          console.log("Logged in successfully!");
           setButtonLoader(false);
           if (resLogin?.data?.userProfile?.profileType) {
-            navigation.navigate("Home");
+            navigation.navigate('Home');
           } else {
-            navigation.navigate("CreateProfile");
+            navigation.navigate('CreateProfile');
           }
         } else {
-          let invalidCred = { email: "", password: resLogin.message };
+          let invalidCred = { email: '', password: resLogin.message };
           setError(invalidCred);
         }
       } catch (error) {
         setButtonLoader(false);
-        console.error("Login failed", error);
+        console.error('Login failed', error);
       } finally {
         setButtonLoader(false);
       }
@@ -130,11 +123,11 @@ export const Login = () => {
             </View>
             <TextInput
               style={styles.input}
-              keyboardType="email-address"
-              placeholder="Email Address"
-              autoCapitalize="none"
+              keyboardType='email-address'
+              placeholder='Email Address'
+              autoCapitalize='none'
               value={loginCreditional.email}
-              onChangeText={(text) => handleChange("email", text)}
+              onChangeText={(text) => handleChange('email', text)}
             />
           </View>
           {error.email ? (
@@ -149,9 +142,9 @@ export const Login = () => {
             <TextInput
               style={styles.input}
               secureTextEntry
-              placeholder="Password"
+              placeholder='Password'
               value={loginCreditional.password}
-              onChangeText={(text) => handleChange("password", text)}
+              onChangeText={(text) => handleChange('password', text)}
             />
           </View>
           {error.password ? (
@@ -160,7 +153,7 @@ export const Login = () => {
 
           <TouchableOpacity
             style={styles.touchablelocksmith}
-            onPress={() => navigation.navigate("ForgetPassword")}
+            onPress={() => navigation.navigate('ForgetPassword')}
           >
             <Text style={styles.textLocksmith}>Need a locksmith?</Text>
           </TouchableOpacity>
@@ -168,14 +161,14 @@ export const Login = () => {
         <View style={styles.loginContainer}>
           <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
             {buttonLoader ? (
-              <ActivityIndicator size={"small"} color={Colors.black} />
+              <ActivityIndicator size={'small'} color={Colors.black} />
             ) : (
               <Text style={styles.loginText}>Log in</Text>
             )}
           </TouchableOpacity>
           <View style={styles.createProfile}>
             <Text style={styles.createProfileText}>Join us?</Text>
-            <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <TouchableOpacity onPress={() => navigation.navigate('Register')}>
               <Text style={styles.createProfileText2}> Create a Profile</Text>
             </TouchableOpacity>
           </View>
@@ -187,7 +180,7 @@ export const Login = () => {
 
 const styles = StyleSheet.create({
   errorText: {
-    color: "red",
+    color: 'red',
     fontSize: 12,
     marginTop: 5,
     marginLeft: 10,
@@ -197,8 +190,8 @@ const styles = StyleSheet.create({
     height: 500,
   },
   container: {
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingTop: 40,
   },
   logo: {
@@ -213,7 +206,7 @@ const styles = StyleSheet.create({
   },
   secondContainer: {},
   inputContainer: {
-    position: "relative",
+    position: 'relative',
     height: 46,
     backgroundColor: Colors.white,
 
@@ -221,16 +214,16 @@ const styles = StyleSheet.create({
     marginTop: 15,
     paddingHorizontal: 10,
     width: ScreenWidth - 140,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   placeholderContainer: {
-    position: "absolute",
-    flexDirection: "row",
-    alignItems: "center",
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
     left: 20,
   },
   placeholderText: {
-    color: "#BDBDBD",
+    color: '#BDBDBD',
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
     marginLeft: 5,
@@ -240,7 +233,7 @@ const styles = StyleSheet.create({
     paddingLeft: 35,
     fontFamily: PoppinsFonts.Regular,
     fontSize: 12,
-    color: "#BDBDBD",
+    color: '#BDBDBD',
   },
   inputIconEmail: {
     height: 15,
@@ -266,18 +259,18 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
     marginTop: 15,
     borderRadius: 23,
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   loginText: {
     fontSize: 16,
     fontFamily: PoppinsFonts.SemiBold,
-    fontWeight: "600",
+    fontWeight: '600',
   },
   createProfile: {
-    flexDirection: "row", // Aligns text & button in a row
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row', // Aligns text & button in a row
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 20,
   },
   createProfileText: {
@@ -288,9 +281,9 @@ const styles = StyleSheet.create({
   },
   createProfileText2: {
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: '600',
     fontFamily: PoppinsFonts.Bold,
     color: Colors.white,
-    textDecorationLine: "underline",
+    textDecorationLine: 'underline',
   },
 });
