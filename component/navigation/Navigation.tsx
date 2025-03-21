@@ -25,6 +25,7 @@ import { load } from '../helper/storage';
 import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { authStoreActions } from '../../redux/authStore';
+import { ScheduleLaunch } from '../../screens/scheduleLaunch/ScheduleLaunch';
 
 const Stack = createStackNavigator();
 
@@ -157,6 +158,11 @@ export const Navigation = () => {
         <Stack.Screen
           name='Studio'
           component={Studio}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='ScheduleLaunch'
+          component={ScheduleLaunch}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

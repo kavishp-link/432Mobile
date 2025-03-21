@@ -22,6 +22,7 @@ import {
   globalStoreActions,
 } from '../../redux/globalStore';
 import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { clear } from '../../component/helper/storage';
 
 const cardSize = ScreenWidth / 3 - 40;
 const cardSizeHeight = ScreenWidth / 3 - 25;
@@ -43,6 +44,15 @@ export const Profile = () => {
       onPress: () => refRBSheet.current.open(),
       icon: icon.rightdrop,
       themeIcon: icon.themeIcon,
+    },
+    {
+      title: 'Logout',
+      onPress: async () => {
+        await clear();
+        navigation.navigate('Login');
+      },
+
+      themeIcon: icon.logout,
     },
   ];
   const handleThemeSelect = (url: string) => {

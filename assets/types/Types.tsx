@@ -17,6 +17,7 @@ export type RootStackParamList = {
   ThemePreview: { url: string };
   Details: { data: any };
   Studio: any;
+  ScheduleLaunch: undefined;
 };
 export type UserDetails = {
   profileType: string;
