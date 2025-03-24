@@ -6,7 +6,7 @@ export * from './createProfileApi';
 export * from './getUserByTokenApi';
 
 export const api = axios.create({
-  baseURL: 'https://7ab4-150-129-144-69.ngrok-free.app',
+  baseURL: 'https://686b-150-129-144-69.ngrok-free.app',
   headers: {
     'Content-Type': 'application/json',
   },

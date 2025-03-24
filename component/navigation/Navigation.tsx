@@ -19,13 +19,13 @@ import {
   MusicWorld,
   Details,
   Studio,
+  ScheduleLaunch,
+  UploadArtAndMusic,
 } from '../../screens';
 import ThemePreview from '../customComponent/ThemePreview';
 import { load } from '../helper/storage';
-import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { authStoreActions } from '../../redux/authStore';
-import { ScheduleLaunch } from '../../screens/scheduleLaunch/ScheduleLaunch';
 
 const Stack = createStackNavigator();
 
@@ -163,6 +163,11 @@ export const Navigation = () => {
         <Stack.Screen
           name='ScheduleLaunch'
           component={ScheduleLaunch}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='UploadArtAndMusic'
+          component={UploadArtAndMusic}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

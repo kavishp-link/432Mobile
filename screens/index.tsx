@@ -15,6 +15,10 @@ import { Genres } from './genres/Genres';
 import { MusicWorld } from './musicWorld/MusicWorld';
 import { Details } from './details/Details';
 import { Studio } from './studio/Studio';
+import { ScheduleLaunch } from './scheduleLaunch/ScheduleLaunch';
+import { UploadArtAndMusic } from './scheduleLaunch/partials/UploadArtAndMusic';
+import { knowledgeCenter } from './knowledgeCenter/knowledgeCenter';
+import { philosophyAndMore } from './philosophyAndMore/philosophyAndMore';
 export {
   CollectorsVault,
   Login,
@@ -33,4 +37,8 @@ export {
   MusicWorld,
   Details,
   Studio,
+  ScheduleLaunch,
+  UploadArtAndMusic,
+  knowledgeCenter,
+  philosophyAndMore,
 };

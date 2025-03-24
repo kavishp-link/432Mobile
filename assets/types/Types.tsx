@@ -18,6 +18,7 @@ export type RootStackParamList = {
   Details: { data: any };
   Studio: any;
   ScheduleLaunch: undefined;
+  UploadArtAndMusic?: { data?: any };
 };
 export type UserDetails = {
   profileType: string;
