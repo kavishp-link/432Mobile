@@ -25,11 +25,9 @@ import { clear, load } from "../../component/helper/storage";
 import { getUserByTokenApi } from "../../utils/api";
 import { Ionicons } from "@expo/vector-icons";
 import FastImage from "react-native-fast-image";
-import * as ImagePicker from "expo-image-picker";
 
 export const Home = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
-  const [selectedImage, setSelectedImage] = useState("");
   const { userDetails } = useSelector((rootState) =>
     getAuthStoreState(rootState)
   );
@@ -46,57 +44,12 @@ export const Home = () => {
     }
   };
 
-  const pickImage = async () => {
-    try {
-      const { status } =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
-      if (status !== "granted") {
-        Alert.alert(
-          "Permission Denied",
-          "Photos access has been denied. Please enable it from the app settings to proceed.",
-
-          [
-            {
-              text: "Go to Settings",
-              onPress: () => Linking.openSettings(),
-            },
-            {
-              text: "Cancel",
-              style: "cancel",
-            },
-          ],
-          { cancelable: false }
-        );
-        return;
-      }
-      const result: ImagePicker.ImagePickerResult =
-        await ImagePicker.launchImageLibraryAsync({
-          mediaTypes: "All",
-          aspect: [4, 3],
-          quality: 1,
-        });
-
-      if (result.canceled || !result.assets?.length) {
-        return;
-      }
-      const selectedAsset: ImagePicker.ImagePickerAsset = result.assets[0];
-      const currentUser: any = await load("currentUser");
-      console.log("selectedAsset---->>", selectedAsset);
-      setSelectedImage(selectedAsset.uri);
-      const fileObj = {
-        fileName: selectedAsset.fileName ?? "image.jpg",
-        fileType: selectedAsset.mimeType ?? "image/jpeg",
-      };
-    } catch (error) {
-      console.error("Error selecting image:", error);
-    } finally {
-    }
-  };
-
   const bottomTitleForVideoComponent =
     userDetails?.userProfile?.profileType === "artist"
       ? "Studio"
       : "Collector's Vault";
+  console.log("userDetails---->>", userDetails);
+
   return (
     <Container bottomTexts={["we", "are", "the", "collective"]}>
       <StatusBar style="light" />
@@ -116,39 +69,14 @@ export const Home = () => {
           <View style={styles.circle}>
             <View style={styles.halfBlack} />
           </View>
-          {selectedImage ? (
-            <Image
-              source={{ uri: selectedImage }}
+          {userDetails?.userProfile?.profileUrl ? (
+            <FastImage
+              source={{ uri: userDetails?.userProfile?.profileUrl }}
               style={[styles.userImage, { borderRadius: 38 }]}
             />
           ) : (
-            <Image source={icon.Avatar} style={styles.userImage} />
+            <FastImage source={icon.Avatar} style={styles.userImage} />
           )}
-          <TouchableOpacity
-            onPress={() => {
-              pickImage();
-            }}
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 7,
-              width: 20,
-              height: 20,
-              backgroundColor: Colors.white,
-              borderRadius: 10,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Image
-              source={icon.editIcon}
-              style={{
-                width: 15,
-                height: 15,
-              }}
-              tintColor={Colors.black}
-            />
-          </TouchableOpacity>
         </TouchableOpacity>
 
         <View style={styles.mainHeadingText}>

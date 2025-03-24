@@ -5,24 +5,24 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
-import React, { useRef, useState } from 'react';
-import Container from '../../component/customComponent/Container';
-import { HeaderProfile } from '../../component/customComponent/HeaderProfile';
-import { icon } from '../../assets/images/Image';
-import HomeVideo from '../../component/customComponent/HomeVideo';
-import { ScreenWidth, themeImage } from '../../component/helper/Helper';
-import { PoppinsFonts } from '../../assets/fonts';
-import { Colors } from '../../assets/colors/Colors';
-import BottomSheet from '../../component/customComponent/BottomSheet';
-import { RootStackParamList, ThemeItem } from '../../assets/types/Types';
-import { useDispatch, useSelector } from 'react-redux';
+} from "react-native";
+import React, { useRef, useState } from "react";
+import Container from "../../component/customComponent/Container";
+import { HeaderProfile } from "../../component/customComponent/HeaderProfile";
+import { icon } from "../../assets/images/Image";
+import HomeVideo from "../../component/customComponent/HomeVideo";
+import { ScreenWidth, themeImage } from "../../component/helper/Helper";
+import { PoppinsFonts } from "../../assets/fonts";
+import { Colors } from "../../assets/colors/Colors";
+import BottomSheet from "../../component/customComponent/BottomSheet";
+import { RootStackParamList, ThemeItem } from "../../assets/types/Types";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getGlobalStoreState,
   globalStoreActions,
-} from '../../redux/globalStore';
-import { NavigationProp, useNavigation } from '@react-navigation/native';
-import { clear } from '../../component/helper/storage';
+} from "../../redux/globalStore";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
+import { clear } from "../../component/helper/storage";
 
 const cardSize = ScreenWidth / 3 - 40;
 const cardSizeHeight = ScreenWidth / 3 - 25;
@@ -32,24 +32,24 @@ export const Profile = () => {
   const navigation = useNavigation<NavigationProp<RootStackParamList>>();
   const settingsOptions = [
     {
-      title: 'Personal Details',
-      onPress: () => console.log('Personal Details Pressed'),
+      title: "Personal Details",
+      onPress: () => navigation.navigate("PersonalDetails"),
     },
     {
-      title: 'Account Security & Privacy',
-      onPress: () => console.log('Account Security & Privacy Pressed'),
+      title: "Account Security & Privacy",
+      onPress: () => console.log("Account Security & Privacy Pressed"),
     },
     {
-      title: 'Theme',
+      title: "Theme",
       onPress: () => refRBSheet.current.open(),
       icon: icon.rightdrop,
       themeIcon: icon.themeIcon,
     },
     {
-      title: 'Logout',
+      title: "Logout",
       onPress: async () => {
         await clear();
-        navigation.navigate('Login');
+        navigation.navigate("Login");
       },
 
       themeIcon: icon.logout,
@@ -68,13 +68,13 @@ export const Profile = () => {
         style={[styles.card, { width: cardSize, height: cardSizeHeight }]}
         onPress={() => {
           refRBSheet.current.close();
-          navigation.navigate('ThemePreview', { url: item.url });
+          navigation.navigate("ThemePreview", { url: item.url });
         }}
       >
         <Image source={icon.themepen} style={styles.themePen} />
         <Image
           source={
-            typeof item.icon === 'string' ? { uri: item.icon } : item.icon
+            typeof item.icon === "string" ? { uri: item.icon } : item.icon
           }
           style={{
             borderRadius: 10,
@@ -87,7 +87,7 @@ export const Profile = () => {
   };
 
   return (
-    <Container bottomTexts={["it's", 'your', 'world']}>
+    <Container bottomTexts={["it's", "your", "world"]}>
       <View style={styles.mainHeader}>
         <HeaderProfile avatar={icon.userAvatar} />
       </View>
@@ -116,10 +116,10 @@ export const Profile = () => {
                   )}
                   <View
                     style={{
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                      width: '90%',
-                      alignItems: 'center',
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      width: "90%",
+                      alignItems: "center",
                     }}
                   >
                     <Text style={styles.text}>{item.title}</Text>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   profileDetails: {
     flex: 1,
-    alignContent: 'center',
+    alignContent: "center",
   },
   container: {
     paddingHorizontal: 16,
@@ -169,16 +169,16 @@ const styles = StyleSheet.create({
   },
   option: {
     borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderBottomColor: Colors.grayBroder,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
     paddingVertical: 12,
   },
   optionRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
   text: {
     fontSize: 16,
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   directoryText: {
     fontSize: 12,
-    color: 'gray',
+    color: "gray",
     paddingVertical: 4,
   },
   icon: {
@@ -199,8 +199,8 @@ const styles = StyleSheet.create({
     height: 16,
   },
   themeHeader: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     paddingVertical: 8,
   },
   text1: {
@@ -214,24 +214,24 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 8,
     elevation: 3,
   },
   cardText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   cardView: {
-    justifyContent: 'center',
+    justifyContent: "center",
     // alignItems: 'center',
     width: ScreenWidth,
     // paddingHorizontal: 25,
   },
   themePen: {
-    position: 'absolute',
+    position: "absolute",
     zIndex: 2,
     width: 26,
     height: 27,
@@ -239,6 +239,6 @@ const styles = StyleSheet.create({
   bottomSheetContainerStyle: {
     flex: 1,
 
-    alignItems: 'center',
+    alignItems: "center",
   },
 });

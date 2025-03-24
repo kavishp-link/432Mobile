@@ -1,5 +1,5 @@
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import { Ionicons } from "@expo/vector-icons";
+import React from "react";
 import {
   View,
   Text,
@@ -8,10 +8,10 @@ import {
   Pressable,
   Image,
   Platform,
-} from 'react-native';
-import { Colors } from '../../assets/colors/Colors';
-import { PoppinsFonts } from '../../assets/fonts';
-import { icon } from '../../assets/images/Image';
+} from "react-native";
+import { Colors } from "../../assets/colors/Colors";
+import { PoppinsFonts } from "../../assets/fonts";
+import { icon } from "../../assets/images/Image";
 
 interface propsInterface {
   midText?: any;
@@ -21,6 +21,8 @@ interface propsInterface {
   backButtonColor?: any;
   rightIcon?: any;
   textViewStyle?: any;
+  isEditButton?: boolean;
+  showEditButton?: boolean;
 }
 
 export const TopBar = (props: propsInterface) => {
@@ -32,11 +34,13 @@ export const TopBar = (props: propsInterface) => {
     backButtonColor,
     rightIcon,
     textViewStyle,
+    isEditButton,
+    showEditButton,
   } = props;
 
   return (
     <View style={[styles.container]}>
-      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <View style={{ flexDirection: "row", alignItems: "center" }}>
         {isBackButton && (
           <TouchableOpacity
             onPress={onLeftPress}
@@ -45,8 +49,8 @@ export const TopBar = (props: propsInterface) => {
               height: 42,
               borderColor: Colors.borderColor,
               borderRadius: 21,
-              justifyContent: 'center',
-              alignItems: 'center',
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Image source={icon.backButton} style={{ height: 24, width: 20 }} />
@@ -57,8 +61,8 @@ export const TopBar = (props: propsInterface) => {
             {
               // width: 150,
               // height: 47,
-              alignItems: 'center',
-              justifyContent: 'center',
+              alignItems: "center",
+              justifyContent: "center",
               marginHorizontal: 10,
             },
             textViewStyle,
@@ -76,7 +80,7 @@ export const TopBar = (props: propsInterface) => {
         style={{
           width: 60,
           height: 28,
-          justifyContent: 'center',
+          justifyContent: "center",
         }}
       >
         {rightIcon && (
@@ -84,8 +88,48 @@ export const TopBar = (props: propsInterface) => {
             onPress={onRightLogPress}
             style={{ width: 27, height: 27 }}
           >
-            <Ionicons name='add' size={27} color={Colors.white} />
+            <Ionicons name="add" size={27} color={Colors.white} />
           </TouchableOpacity>
+        )}
+        {showEditButton && (
+          <>
+            {isEditButton ? (
+              <TouchableOpacity
+                onPress={onRightLogPress}
+                style={{
+                  width: 27,
+                  height: 27,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Image
+                  source={icon.editIcon}
+                  style={{ width: 20, height: 22 }}
+                  tintColor={Colors.white}
+                />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={onRightLogPress}
+                style={{
+                  right: 20,
+                  alignSelf: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontFamily: PoppinsFonts.Bold,
+                    textAlign: "center",
+                  }}
+                >
+                  Cancel
+                </Text>
+              </TouchableOpacity>
+            )}
+          </>
         )}
       </View>
     </View>
@@ -94,19 +138,19 @@ export const TopBar = (props: propsInterface) => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingLeft: 16,
     paddingVertical: 10,
     borderBottomWidth: 0.5,
     borderBottomColor: Colors.borderColor,
-    paddingTop: Platform.OS === 'ios' ? 0 : 25,
+    paddingTop: Platform.OS === "ios" ? 0 : 25,
   },
   text: {
     fontSize: 16,
     color: Colors.white,
     fontFamily: PoppinsFonts.Bold,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
